@@ -11,6 +11,7 @@ var express = require('express'),
   routes = require('./routes'),
   api = require('./routes/api'),
   course = require('./routes/course'),
+  user = require('./routes/user'),
   http = require('http'),
   path = require('path');
 var _ = require('underscore');
@@ -67,6 +68,9 @@ app.get('/api/tokensignin', api.tokenSignIn);
 
 // Course API
 app.get('/course/:year/:semester', course.listCoursesBySemester);
+
+// User API
+app.get('/user/listusers', user.listUsers);
 
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);
