@@ -1,7 +1,6 @@
 /*
  * Serve JSON to our AngularJS client
  */
-var course = require('../models').Course;
 var local = require("../config/local");
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize(
@@ -10,6 +9,17 @@ var sequelize = new Sequelize(
 		local.model.mysql.password,
 		local.model.mysql.options
 );
+var course = sequelize.define('Course', {
+    
+        CID: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true }, 
+        CNAME:Sequelize.TEXT,
+        CINFO:Sequelize.TEXT,
+        CTEACHER:Sequelize.TEXT,
+        CYEAR:Sequelize.DATE,
+        CSEMESTER:Sequelize.DATE
+    },{
+        tableName: 'SA_course'
+    });
 
 exports.listCourses = function (req, res){
     course.findAll({
@@ -27,27 +37,6 @@ exports.listCoursesBySemester = function(req, res){
     var semester = req.params.semester;
     course.findAll({where: {CYEAR : year, CSEMESTER : semester}}).then(function(courses){
         res.json(courses);
-    }).catch(function(err){
-        console.log(err);
-    })
-};
-
-exports.listCoursesByChapter = function(req, res){
-    var csubject = req.params.csubject;
-    var cchapter = req.params.cchapter;
-    course.findAll({where: {SUBJECT: csubject, CHAPTER: cchapter}}).then(function(courses){
-        res.json(courses);
-    }).catch(function(err){
-        console.log(err);
-    })
-};
-
-exports.listCourseByLesson = function(req, res){
-    var csubject = req.params.csubject;
-    var cchapter = req.params.cchapter;
-    var clesson = req.params.clesson;
-    course.find({where: {SUBJECT: csubject, CHAPTER: cchapter, LESSON: clesson}}).then(function(course){
-        res.json(course);
     }).catch(function(err){
         console.log(err);
     })

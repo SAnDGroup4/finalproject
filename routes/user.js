@@ -1,7 +1,7 @@
 /*
  * Serve JSON to our AngularJS client
  */
-var user = require('../models/User');
+
 var local = require("../config/local");
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize(
@@ -10,7 +10,14 @@ var sequelize = new Sequelize(
 		local.model.mysql.password,
 		local.model.mysql.options
 );
-
+var user = sequelize.define('User', {
+        UID: { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true }, 
+        GACCOUNT : Sequelize.TEXT,
+        ADMIN : Sequelize.BOOLEAN,
+        STUID : Sequelize.TEXT
+    },{
+        tableName: 'SA_user'
+    });
 // exports.addUser = function(req, res) {
 //         var username = req.params.username;
 //         var password = req.params.password;
@@ -28,47 +35,45 @@ var sequelize = new Sequelize(
 
 
 exports.listUsers = function(req, res) {
-    user.findAll({
-        // attributes: ['UID', 'UNAME']
-    }).then(function(users){
+    user.findAll().then(function(users){
         res.json(users);
     }).catch(function(err){
         console.log(err);
     })
 };
 
-exports.getUserById = function(req, res){
-    var uid = req.params.uid;
-    user.find({
-        where: {UID: uid},
-        attributes: ['UID', 'UNAME', 'DEPARTMENT', 'MANAGER', 'ADMIN', 'STATUS', 'ULESSON', 'PRETEST', 'POSTTEST']
-    }).then(function(users){
-        res.json(users);
-    }).catch(function(err){
-        console.log(err);
-    })
-};
+// exports.getUserById = function(req, res){
+//     var uid = req.params.uid;
+//     user.find({
+//         where: {UID: uid},
+//         attributes: ['UID', 'UNAME', 'DEPARTMENT', 'MANAGER', 'ADMIN', 'STATUS', 'ULESSON', 'PRETEST', 'POSTTEST']
+//     }).then(function(users){
+//         res.json(users);
+//     }).catch(function(err){
+//         console.log(err);
+//     })
+// };
 
-exports.getUserByAccount = function(req, res){
-    var uaccount = req.params.uaccount;
-    user.find({
-        where: {UACCOUNT: uaccount},
-        attributes: ['UID', 'UNAME', 'DEPARTMENT', 'MANAGER', 'ADMIN', 'STATUS', 'ULESSON', 'PRETEST', 'POSTTEST']
-    }).then(function(users){
-        res.json(users);
-    }).catch(function(err){
-        console.log(err);
-    })
-};
+// exports.getUserByAccount = function(req, res){
+//     var uaccount = req.params.uaccount;
+//     user.find({
+//         where: {UACCOUNT: uaccount},
+//         attributes: ['UID', 'UNAME', 'DEPARTMENT', 'MANAGER', 'ADMIN', 'STATUS', 'ULESSON', 'PRETEST', 'POSTTEST']
+//     }).then(function(users){
+//         res.json(users);
+//     }).catch(function(err){
+//         console.log(err);
+//     })
+// };
 
-exports.deleteUserById = function(req, res){
-    var uid = req.params.uid;
-    user.destroy({where: {UID: uid}}).then(function(){
-        res.json({ message: 'User removed!' });
-    }).catch(function(err){
-        console.log(err);
-    })
-};
+// exports.deleteUserById = function(req, res){
+//     var uid = req.params.uid;
+//     user.destroy({where: {UID: uid}}).then(function(){
+//         res.json({ message: 'User removed!' });
+//     }).catch(function(err){
+//         console.log(err);
+//     })
+// };
 
 
 

@@ -17,38 +17,14 @@
             <i class="google plus icon"></i>
             Login with Google
         </div></a>
-        <!-- <h2>Hi {{name}}</h2>
-        <div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
-        <script>
-          function onSignIn(googleUser) {
-            // Useful data for your client-side scripts:
-            var profile = googleUser.getBasicProfile();
-            console.log("ID: " + profile.getId()); // Don't send this directly to your server!
-            console.log("Name: " + profile.getName());
-            console.log("Image URL: " + profile.getImageUrl());
-            console.log("Email: " + profile.getEmail());
-            // The ID token you need to pass to your backend:
-            var id_token = googleUser.getAuthResponse().id_token;
-            console.log("ID Token: " + id_token);
-          };
-        </script>
-        <div><a href="#" onclick="signOut();">Sign out</a></div>
-        <script>
-          function signOut() {
-            var auth2 = gapi.auth2.getAuthInstance();
-            auth2.signOut().then(function () {
-              console.log('User signed out.');
-            });
-          }
-        </script>
-
+        <h2>Hi {{name}}</h2>
         <div class="ui horizontal buttons">
             <a href="/home"><div class="ui button">home</div></a>
             <a href="/login"><div class="ui button">login</div></a>
             <a href="/course"><div class="ui button">course</div></a>
             <a href="/personalinfo"><div class="ui button">personalinfo</div></a>
         </div>
-        <section ui-view></section> -->
+        <section ui-view></section>
         <script src="js/semantic.min.js"></script>
         <script src='../js/lib/angular/angular.js'></script>
         <script src='//cdnjs.cloudflare.com/ajax/libs/angular.js/1.2.19/angular-route.min.js'></script>
