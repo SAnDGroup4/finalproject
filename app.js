@@ -10,6 +10,7 @@ var express = require('express'),
   morgan = require('morgan'),
   routes = require('./routes'),
   api = require('./routes/api'),
+  google = require('./routes/google'),
   http = require('http'),
   path = require('path');
 var _ = require('underscore');
@@ -24,8 +25,10 @@ var app = module.exports = express();
  */
 
 
-app.set('ipaddress', process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1")
-app.set('port', process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 8080);
+// app.set('ipaddress', process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1")
+app.set('ipaddress', "120.124.97.65");
+// app.set('port', process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 8080);
+app.set('port', 80);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(morgan('dev'));
@@ -60,7 +63,8 @@ app.get('/partial/:name', routes.partial);
 
 // JSON API
 app.get('/api/name', api.name);
-
+app.get('/login', google.redirectAuth);
+app.get('/auth', google.getAuthCode);
 
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);
@@ -70,5 +74,5 @@ app.get('*', routes.index);
  */
 
 http.createServer(app).listen(app.get('port'), app.get('ipaddress'),function () {
-  console.log('Express server listening on port ' + app.get('port'));
+  console.log('Express server listening on '+app.get('ipaddress')+":" + app.get('port'));
 });
