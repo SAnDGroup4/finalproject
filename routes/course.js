@@ -25,7 +25,7 @@ exports.listCourses = function (req, res){
 exports.listCoursesBySemester = function(req, res){
     var year = req.params.year;
     var semester = req.params.semester;
-    course.findAll({where: {CYEAR: year, CSEMESTER:semester}}).then(function(courses){
+    course.findAll({where: {CYEAR : year, CSEMESTER : semester}}).then(function(courses){
         res.json(courses);
     }).catch(function(err){
         console.log(err);

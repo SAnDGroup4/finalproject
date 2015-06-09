@@ -10,11 +10,8 @@ var express = require('express'),
   morgan = require('morgan'),
   routes = require('./routes'),
   api = require('./routes/api'),
-<<<<<<< HEAD
   google = require('./routes/google'),
-=======
   course = require('./routes/course'),
->>>>>>> ba3806eea6d6e85d1072801735ff03e9fb984417
   http = require('http'),
   path = require('path');
 var _ = require('underscore');
