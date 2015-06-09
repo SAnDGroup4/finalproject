@@ -10,6 +10,7 @@ var express = require('express'),
   morgan = require('morgan'),
   routes = require('./routes'),
   api = require('./routes/api'),
+  course = require('./routes/course'),
   http = require('http'),
   path = require('path');
 var _ = require('underscore');
@@ -64,6 +65,8 @@ app.get('/api/name', api.name);
 // Google API
 app.get('/api/tokensignin', api.tokenSignIn);
 
+// Course API
+app.get('/course/:year/:semester', course.listCoursesBySemester);
 
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);
