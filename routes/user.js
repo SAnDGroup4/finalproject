@@ -1,7 +1,7 @@
 /*
  * Serve JSON to our AngularJS client
  */
-var user = require('../models').User;
+var user = require('../models/User');
 var local = require("../config/local");
 var Sequelize = require('sequelize');
 var sequelize = new Sequelize(
@@ -29,7 +29,7 @@ var sequelize = new Sequelize(
 
 exports.listUsers = function(req, res) {
     user.findAll({
-        attributes: ['UID', 'UNAME']
+        // attributes: ['UID', 'UNAME']
     }).then(function(users){
         res.json(users);
     }).catch(function(err){
