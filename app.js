@@ -10,7 +10,11 @@ var express = require('express'),
   morgan = require('morgan'),
   routes = require('./routes'),
   api = require('./routes/api'),
+<<<<<<< HEAD
   google = require('./routes/google'),
+=======
+  course = require('./routes/course'),
+>>>>>>> ba3806eea6d6e85d1072801735ff03e9fb984417
   http = require('http'),
   path = require('path');
 var _ = require('underscore');
@@ -65,6 +69,12 @@ app.get('/partial/:name', routes.partial);
 app.get('/api/name', api.name);
 app.get('/login', google.redirectAuth);
 app.get('/auth', google.getAuthCode);
+
+// Google API
+app.get('/api/tokensignin', api.tokenSignIn);
+
+// Course API
+app.get('/course/:year/:semester', course.listCoursesBySemester);
 
 // redirect all others to the index (HTML5 history)
 app.get('*', routes.index);
