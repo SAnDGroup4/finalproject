@@ -34,6 +34,9 @@ angular.module('myApp', [
     }).
     state('otherwise',{
       url: "/"
+    }).
+    state('course2',{
+      url: "/course2"
     })
 
     $urlRouterProvider.otherwise('/');

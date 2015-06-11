@@ -14,9 +14,10 @@ var express = require('express'),
   course = require('./routes/course'),
   user = require('./routes/user'),
   http = require('http'),
-  path = require('path');
+  path = require('path'),
+  passport = require('passport');
 var _ = require('underscore');
-
+var request = require('request');
 var local = require('./config/local');
 
 var app = module.exports = express();
@@ -65,11 +66,12 @@ app.get('/partial/:name', routes.partial);
 
 // JSON API
 app.get('/api/name', api.name);
-app.get('/login', google.redirectAuth);
-app.get('/auth', google.getAuthCode);
+app.get('/glogin', google.glogin);
+app.get('/callback', google.callback);
+app.get('/user', google.user);
 
 // Google API
-app.get('/api/tokensignin', api.tokenSignIn);
+// app.get('/api/tokensignin', api.tokenSignIn);
 
 // Course API
 app.get('/course/listcourses', course.listCourses); //list all courses
