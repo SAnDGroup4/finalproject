@@ -12,59 +12,50 @@
 		</script>
 	</head>
 	<body>
-		<div id="topDIV" class="top">
-			<div id="toptext">
-				<table style="width:100%">
-					<tr>
-						<td style="padding:5%">
-							<form action="#resultPage" method="get" autocomplete="on">
-								<input type="search" id="fileKeyword" onsearch="searchFile()">
-							</form>
-						</td>
-						<td>
-						</td>
-						<td style="padding:5%; text-align:right">
-							User's Account
-							<img alt="user" src="me.jpeg" height="20" width="20">
-						</td>
-					</tr>
-				</table>
-			</div>
+		<div class="ui segment">
+			<h3 class="ui right floated header">
+				<div class="ui search">
+					<div class="ui icon input">
+						<input class="prompt" type="text" placeholder="Search files">
+						<i class="search icon"></i>
+					</div>
+					<div class="results"></div>
+				</div>
+			</h3>
+			<h3 class="ui left floated header">
+				<i class="user icon"></i>
+			</h3>
 		</div>
-		<div id="header" style="margin:20px">			
-		</div>
-		
-		<table style="width:80%; margin:10%;">
-			<tr>
-				<td>
-					<form onsubmit="showCourse()">
-						<div style="align:center-left">
-							<input list="CourseList">
-							<datalist id="CourseList">
-								<option value="class1">class1</option>
-								<option value="class2">class2</option>
-								<option value="class3">class3</option>
-							</datalist>
-							<input type="submit">
+	
+		<table class="ui compact celled definition table">
+			<thead>
+				<tr>
+					<th>Class Name</th>
+					<th>Class Information</th>
+					<th>Personal Assignment</th>
+					<th>Group Projects</th>
+					<th>Student List</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>SA</td>
+					<td>LINK</td>
+					<td>LIST</td>
+					<td>LIST</td>
+					<td>LIST</td>
+				</tr>
+			</tbody>
+			<tfoot class="full-width">
+				<tr>
+					<td colspan="5">
+						<div class="ui right floated small primary labeled icon button">
+						  <i class="user icon"></i> Add User
 						</div>
-					</form>
-				</td>
-				<td>Class Information</td>
-				<td>Personal Assignments</td>
-				<td>Group Assignment</td>
-				<td>Student List</td>
-			</tr>
-			<tr>
-				<td>ClassName</td>
-				<td>Class Information</td>
-				<td>Personal Assignments</td>
-				<td>Group Assignment</td>
-				<td>Student List</td>
-			</tr>
-		</table>
-		
-		<div>
-		</div>
+					</td>
+				</tr>
+			</tfoot>
+		</table>	
 		
 		<h2>Hello World</h2>
 			<div class="ui button">home</div>
