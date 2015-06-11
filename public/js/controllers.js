@@ -32,7 +32,10 @@ angular.module('myApp.controllers', ['ngRoute']).
       $scope.cname = 'Error!';
     });
   }).
-  controller('Login', function ($rootScope, $scope, $location, $http) {
+  controller('Course2', function ($rootScope, $window, $scope, $http, $state, $location) {
+
+  }).
+  controller('Archive', function ($rootScope, $scope, $location, $http) {
     
   }).
   controller('PersonalInfo', function ($rootScope, $scope, $location, $http) {
