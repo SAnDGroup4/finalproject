@@ -22,10 +22,15 @@ angular.module('myApp', [
       templateUrl: 'partial/course',
       controller: 'Course'
     }).
-    state('login', {
-      url:'/login',
-      templateUrl: 'partial/login',
-      controller: 'Login'
+    state('course2',{
+      url: "/course2",
+      templateUrl: 'partial/course2',
+      controller: 'Course2'
+    }).
+    state('archive', {
+      url:'/archive',
+      templateUrl: 'partial/archive',
+      controller: 'Archive'
     }).
     state('personalinfo', {
       url:'/personalinfo',
