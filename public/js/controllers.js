@@ -35,6 +35,9 @@ angular.module('myApp.controllers', ['ngRoute']).
   controller('Course2', function ($rootScope, $window, $scope, $http, $state, $location) {
 
   }).
+  controller('AddCourse', function ($rootScope, $window, $scope, $http, $state, $location) {
+
+  }).
   controller('Archive', function ($rootScope, $scope, $location, $http) {
     
   }).

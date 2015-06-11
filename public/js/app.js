@@ -27,6 +27,11 @@ angular.module('myApp', [
       templateUrl: 'partial/course2',
       controller: 'Course2'
     }).
+    state('addcourse',{
+      url: "/addcourse",
+      templateUrl: 'partial/addcourse',
+      controller: 'AddCourse'
+    }).
     state('archive', {
       url:'/archive',
       templateUrl: 'partial/archive',

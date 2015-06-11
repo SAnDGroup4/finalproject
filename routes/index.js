@@ -4,7 +4,14 @@
  */
 
 exports.index = function(req, res){
-	res.render('index');
+	sess = req.session;
+	if(sess.email){
+		res.render('index');
+	}
+	else{
+		// res.render('login');
+		res.render('index');
+	}
 };
 
 exports.partial = function (req, res) {
