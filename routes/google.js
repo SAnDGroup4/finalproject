@@ -68,7 +68,7 @@ exports.glogin = function(req, res) {
 	  state: state,
 	  scope: scopes // If you only need one scope you can pass it as string
 	});
-    res.redirect(authUrl);
+    res.redirect(301, authUrl);
 };
 
 

@@ -8,7 +8,7 @@ var express = require('express'),
   methodOverride = require('method-override'),
   errorHandler = require('express-error-handler'),
   session = require('express-session'),
-  cookieParser = require('cookie-parser'),
+  // cookieParser = require('cookie-parser'),
   morgan = require('morgan'),
   routes = require('./routes'),
   api = require('./routes/api'),
@@ -28,8 +28,16 @@ var app = module.exports = express();
 /**
  * Configuration
  */
-app.use(cookieParser());
-app.use(session({secret: 'ssshhhhh', resave: false, saveUninitialized: true}));
+// app.use(cookieParser());
+app.use(session({
+    secret: "hihihi",
+    cookie: {
+      expires: new Date(Date.now() + 24*60*60*1000),
+      maxAge: 24*60*60*1000
+    },
+    resave: true,
+    saveUninitialized: true
+}));
 app.set('ipaddress', process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1")
 // app.set('ipaddress', "120.124.97.65");
 app.set('port', process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 8080);
@@ -58,8 +66,6 @@ if (env === 'production') {
   // TODO
 }
 
-var sess;
-
 /**
  * Routes
  */
@@ -73,17 +79,12 @@ app.get('/api/name', api.name);
 app.get('/glogin', google.glogin);
 app.get('/callback', google.callback);
 app.get('/user', google.user);
-// app.get('/logout',function(req,res){
-//   req.session.destroy(
-//     function(err){
-//       if(err){
-//         console.log(err);
-//       }
-//       else{
-//         res.redirect('/');
-//       }
-//     }
-// });
+app.get('/logout', function(req, res){
+  // req.logout();
+  req.session.destroy(function() {
+    res.render("login");
+  });
+});
 
 // Google API
 // app.get('/api/tokensignin', api.tokenSignIn);
