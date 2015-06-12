@@ -23,10 +23,10 @@ angular.module('myApp.controllers', ['ngRoute']).
   controller('Course', function ($rootScope, $window, $scope, $http, $state, $location) {
     $http({
       method: 'GET',
-      url: '/course/2014/2'
+      url: '/course/listcourses'
     }).
     success(function (data, status, headers, config) {
-      $scope.cname = data[0].CNAME;
+      $scope.courses = data;
     }).
     error(function (data, status, headers, config) {
       $scope.cname = 'Error!';
