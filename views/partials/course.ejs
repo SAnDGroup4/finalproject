@@ -7,7 +7,7 @@
 </h3>
 
 
-<div class="ui compact menu">
+<!-- <div class="ui compact menu">
     <div class="ui simple dropdown item">
       Please select the semester
       <i class="dropdown icon"></i>
@@ -18,6 +18,14 @@
       </div>
     </div>
   </div>
+ -->
+<select class="ui dropdown" ng-model="selection">
+  <option value="2014/2">103-2</option>
+  <option value="2014/1">103-1</option>
+  <option value="2013/2">102-2</option>
+  <option value="2013/1">102-1</option>
+</select>
+
 
 
   <div class="ui right floated button">
@@ -35,13 +43,13 @@
     <th>Action</th>
   </tr></thead>
   <tbody>
-    <tr>
-      <td width="7%">IM 3007</td>
+    <tr ng-repeat="course in courses">
+      <td width="7%">{{course.CID}}</td>
       <td width="5%"></td>
-      <td width="25%">System Analysis and Design</td>
+      <td width="25%">{{course.CNAME}}</td>
       <td width="10%">Monday678</td>
-      <td width="10%">管二102</td>
-      <td width="20%">Department of Information Management</td>
+      <td width="10%">{{course.CINFO}}</td>
+      <td width="20%">{{course.CTEACHER}}</td>
       <td width="7%">
       <a href="/course2"><div class="ui button">Edit</div></a>
     
@@ -59,6 +67,8 @@
       Edit
     </div>
       </td>
+    </tr>
+	  </td>
     </tr>
   </tbody>
   
@@ -116,18 +126,3 @@
 
 </div>
 
-
-<!-- 
-<h2>Hello World</h2>
-<div class="ui button">home</div>
-
-      <div class="ui primary button">
-        Save
-      </div>
-      <div class="ui button">
-        Discard
-      </div>
-
-<p ng-controller="Course">Yo {{cname}}</p>
-<p>cname</p>
--->
