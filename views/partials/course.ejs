@@ -1,10 +1,10 @@
 
 <br>
 <div class="ui segment">
-<h3 class="ui dividing header">
+<h2 class="ui dividing header">
   <div class="ui blue label">1.</div>
   Course Information
-</h3>
+</h2>
 
 
 <!-- <div class="ui compact menu">
@@ -34,28 +34,33 @@
 
 <table class="ui collapsing table segment">
   <thead>
-    <tr><th>Course No</th>
-    <th>Class</th>
-    <th>Course Title</th>
-    <th>Time</th>
-    <th>Classroom</th>
-    <th>Designated For</th>
-    <th>Action</th>
+    <tr>
+    <th width ="7%">Course No</th>    
+    <th width="18%">Course Title</th>
+    <th width="8%">Time</th>
+    <th width="8%">Classroom</th>
+    <th width="38%">Description</th>
+    <th width="7%">Instructor</th>
+    <th width="9%">Designated for</th>
+    <th width="5%">Action</th>
+
   </tr></thead>
   <tbody>
     <tr ng-repeat="course in courses">
-      <td width="7%">{{course.CID}}</td>
-      <td width="5%"></td>
-      <td width="25%">{{course.CNAME}}</td>
-      <td width="10%">Monday678</td>
-      <td width="10%">{{course.CINFO}}</td>
-      <td width="20%">{{course.CTEACHER}}</td>
-      <td width="7%">
+      <!-- Call database -->
+      <td>{{course.CID}}</td>     
+      <td>{{course.CNAME}}</td>
+      <td>{{course.CTIME}}</td>
+      <td>{{course.CCLASSROOM}}</td>
+      <td>{{course.CINFO}}</td>
+      <td>{{course.CTEACHER}}</td>
+      <td>{{course.CTARGET}}</td>
+      <td>
       <a href="/course2"><div class="ui button">Edit</div></a>
     
     </td>
     </tr>
-    <tr>
+    <!-- <tr>
       <td>IM 5034</td>
       <td></td>
       <td>Information Technology and Innovation</td>
@@ -70,39 +75,42 @@
     </tr>
 	  </td>
     </tr>
+  -->
   </tbody>
   
 </table>
 
 
-<h3 class="ui dividing header">
+<h2 class="ui dividing header">
   <div class="ui blue label">2.</div>
   Student's groupings
-</h3>
+</h2>
 
 <table class="ui collapsing table segment">
   <thead>
-    <tr><th>Course No</th>
-    <th>Class</th>
+    <tr>
+    <th>Course No</th>
+
     <th>Course Title</th>
-    <th>Designated For</th>
+
     <th>Number of students</th>
     <th>Number of groups</th>
     <th>Action</th>
   </tr></thead>
   <tbody>
-    <tr>
-      <td>IM 3007</td>
-      <td></td>
-      <td>System Analysis and Design</td>
-      <td>Department of Information Management</td>
-      <td>50</td>
-      <td>10</td>
+    <tr ng-repeat="course in courses">
+      <td>{{course.CID}}</td>
+
+      <td>{{course.CNAME}}</td>
+
+      <td>{{course.CNUMBER}}</td>
+      <td>{{course.CGROUP}}</td>
       <td>
       <a href="/student"><div class="ui button">More</div></a>
     
     </td>
     </tr>
+    <!--
     <tr>
       <td>IM 5034</td>
       <td></td>
@@ -116,6 +124,7 @@
     </div>
       </td>
     </tr>
+  -->
   </tbody>
   
 </table>
