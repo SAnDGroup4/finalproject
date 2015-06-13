@@ -6,7 +6,7 @@ var scopes = [
 ];
 var google = require('googleapis');
 var OAuth2 = google.auth.OAuth2;
-var user = require('user.js'),
+
 // var qs = require("qs");
 
 // var local = require("../config/local");
@@ -47,7 +47,6 @@ var oauth2Client = new OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL, {tokenUrl:
 exports.glogin = function(req, res) {
 	console.log('get glogin');
 	console.log(req.session.isLogin);
-	console.log(req.session.tokens);
 	if(req.session.isLogin)
 		res.redirect('/');
     // Generate a unique number that will be used to check if any hijacking
@@ -75,27 +74,24 @@ exports.callback = function(req, res) {
       , error = req.query.error;
   	console.log('get callback');
   	console.log(req.session.isLogin);
-  	console.log(req.session.tokens);
     // Verify the 'state' variable generated during '/login' equals what was passed back
     if (state == cb_state) {
         if (code !== undefined) {
         	req.session.isLogin = true;
-        	// var outertokens;
           	oauth2Client.getToken(code, function(err, tokens) {
 			  // Now tokens contains an access_token and an optional refresh_token. Save them.
 			  if(!err) {
 			  	console.log('process tokens');
 			  	console.log(tokens);
 			    oauth2Client.setCredentials(tokens);
+			    req.session.tokens = tokens;
 			    console.log(req.session.isLogin);
-			    console.log(oauth2Client.credentials.refresh_token);
-			    // outertokens=tokens.refresh_token;
 			  }
 			  else{
 			  	console.error("Error occured: ", err);
 			  }
 			});
-          	req.session.tokens = oauth2Client.credentials.refresh_token;
+
 
             // Setup params and URL used to call API to obtain an access_token
             // var params = {
@@ -125,7 +121,6 @@ exports.callback = function(req, res) {
                 // res.writeHead(200, {'Content-Type': 'text/html'});
                 console.log('redirect /');
                 console.log(req.session.isLogin);
-                console.log(req.session.tokens);
             res.redirect('/');
         } else {
             console.log("Code is undefined: " + code);
