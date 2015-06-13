@@ -12,8 +12,12 @@ var sequelize = new Sequelize(
 );
 var user = sequelize.define('User', {
         UID: { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true }, 
+        UACCOUNT : Sequelize.TEXT,
+        UPASSWORD : Sequelize.TEXT,
         GACCOUNT : Sequelize.TEXT,
+        G_REFRESH_TOKEN : Sequelize.TEXT,
         ADMIN : Sequelize.BOOLEAN,
+        UNAME : Sequelize.TEXT,
         STUID : Sequelize.TEXT
     },{
         tableName: 'SA_user'

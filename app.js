@@ -8,7 +8,7 @@ var express = require('express'),
   methodOverride = require('method-override'),
   errorHandler = require('express-error-handler'),
   session = require('express-session'),
-  // cookieParser = require('cookie-parser'),
+  cookieParser = require('cookie-parser'),
   morgan = require('morgan'),
   routes = require('./routes'),
   api = require('./routes/api'),
@@ -24,19 +24,22 @@ var local = require('./config/local');
 
 var app = module.exports = express();
 
-
 /**
  * Configuration
  */
-// app.use(cookieParser());
+app.use(cookieParser());
+// var RedisStore = require('connect-redis')(session);
+// var sessionRedis = new RedisStore(local.session.redis);
+
 app.use(session({
+    // store: sessionRedis,
     secret: "hihihi",
-    cookie: {
-      expires: new Date(Date.now() + 24*60*60*1000),
-      maxAge: 24*60*60*1000
-    },
-    resave: true,
-    saveUninitialized: true
+    // cookie: {
+    //   expires: new Date(Date.now() + 30*24*60*60*1000),
+    //   maxAge: 30*24*60*60*1000
+    // },
+    // resave: false,
+    // saveUninitialized: false
 }));
 app.set('ipaddress', process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1")
 // app.set('ipaddress', "120.124.97.65");
