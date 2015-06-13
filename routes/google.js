@@ -6,17 +6,17 @@ var scopes = [
 ];
 var google = require('googleapis');
 var OAuth2 = google.auth.OAuth2;
-
+var user = require('user.js'),
 // var qs = require("qs");
 
-var local = require("../config/local");
-var Sequelize = require('sequelize');
-var sequelize = new Sequelize(
-		local.model.mysql.database,
-		local.model.mysql.account,
-		local.model.mysql.password,
-		local.model.mysql.options
-);
+// var local = require("../config/local");
+// var Sequelize = require('sequelize');
+// var sequelize = new Sequelize(
+// 		local.model.mysql.database,
+// 		local.model.mysql.account,
+// 		local.model.mysql.password,
+// 		local.model.mysql.options
+// );
 
 // var state = ''
 //   , access_token = ''
@@ -45,30 +45,25 @@ var oauth2Client = new OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL, {tokenUrl:
 
 
 exports.glogin = function(req, res) {
+	console.log('get glogin');
+	console.log(req.session.isLogin);
+	console.log(req.session.tokens);
+	if(req.session.isLogin)
+		res.redirect('/');
     // Generate a unique number that will be used to check if any hijacking
     // was performed during the OAuth flow
-    // console.log("here");
-    state = Math.floor(Math.random() * 1e18);
-    // var params = {
-    //     response_type: "code",
-    //     client_id: CLIENT_ID,
-    //     redirect_uri: REDIRECT_URL,
-    //     state: state,
-    //     display: "popup",
-    //     scope: scopes
-    // };
-    
-    // params = qs.stringify(params);
-    // res.writeHead(200, {'Content-Type': 'text/plain'});
-    // res.end("https://accounts.google.com/o/oauth2/auth?" + params);
-
-    var authUrl = oauth2Client.generateAuthUrl({
-      response_type: "code",
-	  access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
-	  state: state,
-	  scope: scopes // If you only need one scope you can pass it as string
-	});
-    res.redirect(301, authUrl);
+    else{
+	    state = Math.floor(Math.random() * 1e18);
+	    var authUrl = oauth2Client.generateAuthUrl({
+	      response_type: "code",
+		  access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
+		  state: state,
+		  scope: scopes, // If you only need one scope you can pass it as string
+		  approval_prompt: 'force'
+		});
+		console.log('redirect authURL');
+	    res.redirect(authUrl);
+	}
 };
 
 
@@ -78,22 +73,29 @@ exports.callback = function(req, res) {
     var code = req.query.code
       , cb_state = req.query.state
       , error = req.query.error;
-  
+  	console.log('get callback');
+  	console.log(req.session.isLogin);
+  	console.log(req.session.tokens);
     // Verify the 'state' variable generated during '/login' equals what was passed back
     if (state == cb_state) {
         if (code !== undefined) {
+        	req.session.isLogin = true;
+        	// var outertokens;
           	oauth2Client.getToken(code, function(err, tokens) {
 			  // Now tokens contains an access_token and an optional refresh_token. Save them.
 			  if(!err) {
+			  	console.log('process tokens');
 			  	console.log(tokens);
-				// console.log(response);
 			    oauth2Client.setCredentials(tokens);
+			    console.log(req.session.isLogin);
+			    console.log(oauth2Client.credentials.refresh_token);
+			    // outertokens=tokens.refresh_token;
 			  }
 			  else{
 			  	console.error("Error occured: ", err);
 			  }
 			});
-
+          	req.session.tokens = oauth2Client.credentials.refresh_token;
 
             // Setup params and URL used to call API to obtain an access_token
             // var params = {
@@ -117,14 +119,14 @@ exports.callback = function(req, res) {
                 // access_token = results.access_token;
                 // token_type = results.token_type;
                 // expires = results.expires_in;
-                
-            console.log("Connected to Google");
-                
                 // Close the popup. This will trigger the client (index.html) to redirect
                 // to '/user' which will test out the access_token.
                 // var output = '<html><head></head><body onload="window.close();">Close this window</body></html>';
                 // res.writeHead(200, {'Content-Type': 'text/html'});
-            res.redirect('/user');
+                console.log('redirect /');
+                console.log(req.session.isLogin);
+                console.log(req.session.tokens);
+            res.redirect('/');
         } else {
             console.log("Code is undefined: " + code);
             console.log("Error: " + error);

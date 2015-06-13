@@ -4,13 +4,23 @@
  */
 
 exports.index = function(req, res){
-	sess = req.session;
-	if(sess.email){
-		res.render('index');
-	}
-	else{
-		// res.render('login');
-		res.render('index');
+	var config = {};
+	console.log('get index');
+	console.log(req.session.isLogin);
+	console.log(req.session.tokens);
+    config.isLogin = req.session.isLogin ? true : false;
+    if(config.isLogin){
+    	console.log('render index');
+    	console.log(req.session.isLogin);
+    	console.log(req.session.tokens);
+
+        res.render('index', config);
+    }
+    else{
+        console.log('render login');
+    	console.log(req.session.isLogin);
+    	console.log(req.session.tokens);
+        res.render('login', config);
 	}
 };
 

@@ -4,17 +4,17 @@
 
 angular.module('myApp.controllers', ['ngRoute']).
   controller('AppCtrl', function ($rootScope, $window, $scope, $http, $state, $location) {
-
-    $http({
-      method: 'GET',
-      url: '/api/name'
-    }).
-    success(function (data, status, headers, config) {
-      $scope.name = data.name;
-    }).
-    error(function (data, status, headers, config) {
-      $scope.name = 'Error!';
-    });
+    $rootScope.isLogin = $window.isLogin;
+    // $http({
+    //   method: 'GET',
+    //   url: '/api/name'
+    // }).
+    // success(function (data, status, headers, config) {
+    //   $scope.name = data.name;
+    // }).
+    // error(function (data, status, headers, config) {
+    //   $scope.name = 'Error!';
+    // });
 
   }).
   controller('Home', function ($rootScope, $scope, $location, $http) {
