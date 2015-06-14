@@ -67,6 +67,31 @@ angular.module('myApp.controllers', ['ngRoute']).
     error(function (data, status, headers, config) {
       $scope.cname = 'Error!';
     });
+
+     $scope.$watch('semester', function(newValue, oldValue) {
+      $http({
+        method: 'GET',
+        url: '/course/'+$scope.semester
+      }).
+      success(function (data, status, headers, config) {
+        $scope.courses = data;
+      }).
+      error(function (data, status, headers, config) {
+        $scope.cname = 'Error!';
+      });
+    },true);
+    $scope.$watch('course', function(newValue, oldValue) {
+      $http({
+        method: 'GET',
+        url: '/course/'+$scope.semester
+      }).
+      success(function (data, status, headers, config) {
+        $scope.courses = data;
+      }).
+      error(function (data, status, headers, config) {
+        $scope.cname = 'Error!';
+      });
+    },true);
   }).
   controller('Course2', function ($rootScope, $window, $scope, $http, $state, $location) {
 
