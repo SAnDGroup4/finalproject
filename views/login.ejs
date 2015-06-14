@@ -1,6 +1,15 @@
 <!doctype html>
 <html lang="en" ng-app="myApp">
     <head>
+		<style>
+		.login
+		{
+			align: center;
+			font-size: 30px;
+		}
+		</style>
+    </head>
+    <body>
     <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.min.js"></script>
     <script type="text/javascript">
 		var url = '';
@@ -19,6 +28,6 @@
 	</script>
     </head>
     <body>
-		<button onclick="w = window.open(url, 'window', 'status=0,menubar=0,resizable=1,width=500,height=500;')">Login to Google</button>
+		<button class="login" onclick="w = window.open(url, 'window', 'status=0,menubar=0,resizable=1,width=500,height=500;')">Login to Google</button>
     </body>
 </html>

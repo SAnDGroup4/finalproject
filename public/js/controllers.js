@@ -32,8 +32,8 @@ angular.module('myApp.controllers', ['ngRoute']).
               function createPicker() {
                 if (pickerApiLoaded) {
                   var picker = new google.picker.PickerBuilder().
-                      addView(new google.picker.DocsView().setParent('0By1_ThVGOOUFfkU4aDRpQmwzX0V0eElRQmdVVWZxbERUUTVHSDYzeTRMME5CMktmOW1oakU')).
-                      addView(new google.picker.DocsUploadView().setParent('0By1_ThVGOOUFfkU4aDRpQmwzX0V0eElRQmdVVWZxbERUUTVHSDYzeTRMME5CMktmOW1oakU')).
+                      addView(new google.picker.DocsView()).
+                      addView(new google.picker.DocsUploadView()).
                       setOAuthToken(oauthToken).
                       setDeveloperKey('AIzaSyDaTJUsZ-Fz329lKw5tTcry4DZIq_5s_tY').
                       // setCallback(pickerCallback).
@@ -119,9 +119,8 @@ angular.module('myApp.controllers', ['ngRoute']).
     //  console.log($scope.name);
     //},true);
 
-    $scope.addBook = function()
-      {
-      http({
+    $scope.addBook = function(){
+      $http({
 
       method : 'POST',
       url: '/course/addcourse',
@@ -129,8 +128,7 @@ angular.module('myApp.controllers', ['ngRoute']).
             Classroom : $scope.classVenue, Note: 'English-taught class',
             year: '103', semester: '1'},
       //headers : {'Content-type' : 'application/json'} 
-      })//.success(function(data, status, headers, config){
-
+      }).
       success(function (data, status, headers, config) {
         $scope.courses = data;
       }).
@@ -145,12 +143,8 @@ angular.module('myApp.controllers', ['ngRoute']).
       }).error(function(data, status, headers, config){
         $scope.cname = 'Error!';
       //set error message.*/
-}})
-//}).
-
-
-
-  
+    }
+  }).
   controller('Archive', function ($rootScope, $scope, $location, $http) {
     $scope.$watch('semester', function(newValue, oldValue) {
       $http({
