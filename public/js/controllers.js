@@ -32,7 +32,7 @@ angular.module('myApp.controllers', ['ngRoute']).
               function createPicker() {
                 if (pickerApiLoaded) {
                   var picker = new google.picker.PickerBuilder().
-                      addView(new google.picker.DocsView()).
+                      addView(new google.picker.DocsView().setParent('')).
                       addView(new google.picker.DocsUploadView()).
                       setOAuthToken(oauthToken).
                       setDeveloperKey('AIzaSyDaTJUsZ-Fz329lKw5tTcry4DZIq_5s_tY').

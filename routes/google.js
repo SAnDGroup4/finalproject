@@ -11,7 +11,7 @@ var google = require('googleapis');
 var OAuth2 = google.auth.OAuth2;
 var request = require('request');
 var drive = google.drive('v2');
-var user = require('/user');
+var user = require('./user.js');
 
 // var qs = require("qs");
 
