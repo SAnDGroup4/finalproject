@@ -32,8 +32,8 @@ angular.module('myApp.controllers', ['ngRoute']).
               function createPicker() {
                 if (pickerApiLoaded) {
                   var picker = new google.picker.PickerBuilder().
-                      addView(new google.picker.DocsView().setParent('0By1_ThVGOOUFfkU4aDRpQmwzX0V0eElRQmdVVWZxbERUUTVHSDYzeTRMME5CMktmOW1oakU')).
-                      addView(new google.picker.DocsUploadView().setParent('0By1_ThVGOOUFfkU4aDRpQmwzX0V0eElRQmdVVWZxbERUUTVHSDYzeTRMME5CMktmOW1oakU')).
+                      addView(new google.picker.DocsView()).
+                      addView(new google.picker.DocsUploadView()).
                       setOAuthToken(oauthToken).
                       setDeveloperKey('AIzaSyDaTJUsZ-Fz329lKw5tTcry4DZIq_5s_tY').
                       // setCallback(pickerCallback).
@@ -106,8 +106,7 @@ angular.module('myApp.controllers', ['ngRoute']).
     //  console.log($scope.name);
     //},true);
 
-    $scope.addBook = function()
-      {
+    $scope.addBook = function(){
       $http({
 
       method : 'POST',
@@ -131,12 +130,8 @@ angular.module('myApp.controllers', ['ngRoute']).
       }).error(function(data, status, headers, config){
         $scope.cname = 'Error!';
       //set error message.*/
-}})
-//}).
-
-
-
-  
+    }
+  }).
   controller('Archive', function ($rootScope, $scope, $location, $http) {
     $scope.$watch('semester', function(newValue, oldValue) {
       $http({
