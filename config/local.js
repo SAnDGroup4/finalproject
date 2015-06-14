@@ -16,9 +16,9 @@ module.exports = {
 	},
 	session: {
 		redis: {
-			host: 'pub-redis-11080.us-east-1-1.2.ec2.garantiadata.com',
-			port: 11080,
-			pass: "e1033e1033"
+			host: 'pub-redis-14195.us-east-1-2.2.ec2.garantiadata.com',
+			port: 14195,
+			pass: "final"
 		}
     }
 }

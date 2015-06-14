@@ -1,17 +1,3 @@
-<html>
-	<head>
-		<title>Manager's Archive</title>
-		<script>
-			function searchFile()
-			{
-				var key=document.getElementById("fileKeyword");
-			}
-			function showCourse()
-			{
-			}
-		</script>
-	</head>
-	<body>
 		<div class="ui segment">
 			<h3 class="ui left floated header">
 				<div class="ui search">
@@ -26,23 +12,21 @@
 				<i class="user icon"></i>
 			</h3>
 		</div>
-	
+		<select class="ui dropdown" ng-model="semester">
+		  <option value="">Semester</option>
+		  <option value="2014/2">103-2</option>
+		  <option value="2014/1">103-1</option>
+		  <option value="2013/2">102-2</option>
+		  <option value="2013/1">102-1</option>
+		</select>
+
+		<select class="ui dropdown" ng-model="course" ng-options="course.CNAME for course in courses">
+		  <option value="">Course</option>
+		</select>
+
 		<table class="ui compact celled definition table">
 			<thead>
 				<tr>
-					<th>
-						<div class="ui compact menu">
-							<div class="ui simple dropdown item">
-								Class name
-								<i class="dropdown icon"></i>
-								<div class="menu">
-								<div class="item">System Analysis and Design</div>
-								<div class="item">Database Management</div>
-								<div class="item">Computer Structure</div>
-								</div>
-							</div>
-						  </div>
-					</th>
 					<th>Class Information</th>
 					<th>Personal Assignment</th>
 					<th>Group Projects</th>
@@ -61,14 +45,14 @@
 			<tfoot class="full-width">
 				<tr>
 					<td colspan="5">
-						<div class="ui right floated small primary labeled icon button">
+						<div class="ui right floated small primary labeled icon button" ng-click="loadPicker();">
 						  <i class="user icon"></i> Edit in Google Drive
 						</div>
 					</td>
 				</tr>
 			</tfoot>
-		</table>	
-		
+		</table>
+		<button onclick="test();">Yo</button>	
 		<h2>Hello World</h2>
 			<div class="ui button">home</div>
 
@@ -81,5 +65,3 @@
 
 		<p ng-controller="Course">Yo {{cname}}</p>
 		<p>cname</p>
-	</body>
-</html>

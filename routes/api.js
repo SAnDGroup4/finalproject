@@ -15,7 +15,3 @@ exports.name = function (req, res) {
     name: 'Elton'
   });
 };
-
-exports.tokenSignIn = function(req, res){
-  
-};

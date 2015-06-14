@@ -1,11 +1,24 @@
 <!doctype html>
 <html lang="en" ng-app="myApp">
     <head>
+    <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript">
+		var url = '';
+		var w = '';
+		$(document).ready(function() { 
+			$.get('/glogin', function(data) {
+				url = data;
+			});
+			var interval = window.setInterval((function() {
+			 	if (w.closed) {
+			 		window.clearInterval(interval);
+			 		window.location = '/user';
+			 	}
+			 }),1000);
+		});
+	</script>
     </head>
     <body>
-		<a href="/glogin"><div class="ui google plus button">
-            <i class="google plus icon"></i>
-            Login with Google
-        </div></a>
+		<button onclick="w = window.open(url, 'window', 'status=0,menubar=0,resizable=1,width=500,height=500;')">Login to Google</button>
     </body>
 </html>

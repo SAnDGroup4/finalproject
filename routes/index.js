@@ -1,25 +1,18 @@
-
+var request = require('request');
 /*
  * GET home page.
  */
 
 exports.index = function(req, res){
 	var config = {};
-	console.log('get index');
-	console.log(req.session.isLogin);
-	console.log(req.session.tokens);
     config.isLogin = req.session.isLogin ? true : false;
+    request.post({url: 'http://localhost:8080/token'});
+    config.token = req.session.token;
+    console.log(config.token);
     if(config.isLogin){
-    	console.log('render index');
-    	console.log(req.session.isLogin);
-    	console.log(req.session.tokens);
-
         res.render('index', config);
     }
     else{
-        console.log('render login');
-    	console.log(req.session.isLogin);
-    	console.log(req.session.tokens);
         res.render('login', config);
 	}
 };

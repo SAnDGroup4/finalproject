@@ -8,11 +8,8 @@
         <link rel="stylesheet" href="/css/icon.min.css">
         <link rel="stylesheet" href="/css/image.min.css">
         <link rel='stylesheet', href='/css/app.css'>
-        <script>
-        var isLogin = <%- isLogin ? 'true' : 'false'%>;
-        </script>
     </head>
-    <body ng-controller="AppCtrl">
+    <body ng-controller="AppCtrl" ng-init="update()">
         <h2>Hi {{name}}</h2>
         <div class="ui horizontal buttons">
             <a href="/home"><div class="ui button">home</div></a>
@@ -33,5 +30,12 @@
         <script src='../js/directives.js'></script>
         <script src="https://apis.google.com/js/platform.js" async defer></script>
         <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+        <script src="https://apis.google.com/js/api.js"></script>
+        <script>
+            function test(){
+                alert('shitt');
+            };
+            
+        </script>
     </body>
 </html>

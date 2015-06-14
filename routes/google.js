@@ -2,10 +2,16 @@ var CLIENT_ID = '998708767567-il73o9ta6h4jsb4n644apn97tb2a5rl3';
 var CLIENT_SECRET = 'AQdW-zh3ALolTxOBerMBKzaN';
 var REDIRECT_URL = 'http://localhost:8080/callback';
 var scopes = [
-  'https://www.googleapis.com/auth/drive'
+  'https://www.googleapis.com/auth/drive',
+  'https://www.googleapis.com/auth/userinfo.profile',
+  'https://www.googleapis.com/auth/userinfo.email',
+  'https://www.googleapis.com/auth/photos'
 ];
 var google = require('googleapis');
 var OAuth2 = google.auth.OAuth2;
+var request = require('request');
+var drive = google.drive('v2');
+var user = require('/user');
 
 // var qs = require("qs");
 
@@ -42,13 +48,20 @@ var oauth2Client = new OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL, {tokenUrl:
 // 	console.log('success');
 // 	res.redirect('http://tw.yahoo.com');
 // }
-
+exports.getToken = function(req, res){
+	var state={access_token:'', isLogin:false};
+  	oauth2Client.getAccessToken(function(err, token, response){
+  		if(!err){
+	  		state.access_token = token;
+	  		state.isLogin = true;
+  		}
+  	});
+  	res.json(state);
+};
 
 exports.glogin = function(req, res) {
-	console.log('get glogin');
-	console.log(req.session.isLogin);
 	if(req.session.isLogin)
-		res.redirect('/');
+		res.render('/');
     // Generate a unique number that will be used to check if any hijacking
     // was performed during the OAuth flow
     else{
@@ -58,16 +71,16 @@ exports.glogin = function(req, res) {
 		  access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
 		  state: state,
 		  scope: scopes, // If you only need one scope you can pass it as string
-		  approval_prompt: 'force'
+		  approval_prompt: 'force',
+		  display: 'popup'
 		});
-		console.log('redirect authURL');
-	    res.redirect(authUrl);
+	    res.writeHead(200, {'Content-Type': 'text/plain'});
+    	res.end(authUrl);
 	}
 };
 
 
 exports.callback = function(req, res) {
-  
     // Collect the data contained in the querystring
     var code = req.query.code
       , cb_state = req.query.state
@@ -77,51 +90,19 @@ exports.callback = function(req, res) {
     // Verify the 'state' variable generated during '/login' equals what was passed back
     if (state == cb_state) {
         if (code !== undefined) {
-        	req.session.isLogin = true;
+        	// req.session.isLogin = true;
           	oauth2Client.getToken(code, function(err, tokens) {
 			  // Now tokens contains an access_token and an optional refresh_token. Save them.
 			  if(!err) {
-			  	console.log('process tokens');
-			  	console.log(tokens);
 			    oauth2Client.setCredentials(tokens);
-			    req.session.tokens = tokens;
-			    console.log(req.session.isLogin);
 			  }
 			  else{
 			  	console.error("Error occured: ", err);
 			  }
 			});
-
-
-            // Setup params and URL used to call API to obtain an access_token
-            // var params = {
-            //     code: code,
-            //     client_id: CLIENT_ID,
-            //     client_secret: CLIENT_SECRET,
-            //     redirect_uri: REDIRECT_URL,
-            //     grant_type: "authorization_code"
-            // };
-            // var url = "https://www.googleapis.com/oauth2/v3/token";
-            
-            // Send the API request
-            // request.post(url, {form: params}, function(err, resp, body) {
-              
-                // Handle any errors that may occur
-                // if (err) return console.error("Error occured: ", err);
-                // var results = JSON.parse(body);
-                // if (results.error) return console.error("Error returned from Google: ", results.error);
-                
-                // Retrieve and store access_token to session
-                // access_token = results.access_token;
-                // token_type = results.token_type;
-                // expires = results.expires_in;
-                // Close the popup. This will trigger the client (index.html) to redirect
-                // to '/user' which will test out the access_token.
-                // var output = '<html><head></head><body onload="window.close();">Close this window</body></html>';
-                // res.writeHead(200, {'Content-Type': 'text/html'});
-                console.log('redirect /');
-                console.log(req.session.isLogin);
-            res.redirect('/');
+			var output = '<html><head></head><body onload="window.close();">Close this window</body></html>';
+            res.writeHead(200, {'Content-Type': 'text/html'});
+            res.end(output);
         } else {
             console.log("Code is undefined: " + code);
             console.log("Error: " + error);
@@ -133,31 +114,51 @@ exports.callback = function(req, res) {
     }
 };
 
-exports.user = function(req, res) {
-  	var access_token = oauth2Client.credentials.access_token;
-    // Check to see if user has an access_token first
-    if (access_token) {
-      
-        // URL endpoint and params needed to make the API call  
-        var url = "https://www.googleapis.com/oauth2/v1/userinfo";
-        var params = {
-            access_token: access_token
-        };
+exports.createUser = function(req, res) {
+	req.session.isLogin = true;
+  	// var access_token;
+  	// oauth2Client.getAccessToken(function(err, token, response){
+  	// 	access_token = token;
+  	// 	req.session.token = token;
+  	// });
+	var params={auth: oauth2Client };
+  	drive.about.get(params, function (err, response) {
+	  if (err) {
+	    console.log('Encountered error', err);
+	  } else {
 
-        // Send the request
-        request.get({url: url, qs: params}, function(err, resp, user) {
-            // Check for errors
-            if (err) return console.error("Error occured: ", err);
+	    console.log('response: ', response.user.emailAddress);
+	    console.log(response.name);
+	  }
+	});
+
+  	res.redirect('/');
+    // Check to see if user has an access_token first
+    // if (access_token) {
+      
+    //     // URL endpoint and params needed to make the API call  
+    //     var url = "https://www.googleapis.com/drive/v2/about";
+    //     var params = {
+    //     	fields: user,
+    //         key: access_token
+    //     };
+
+    //     // Send the request
+    //     request.get({url: url, qs: params}, function(err, resp, user) {
+    //         // Check for errors
+    //         if (err) return console.error("Error occured: ", err);
             
-            // Send output as response
-            // var output = "<h1>Your User Details</h1><pre>" + user + "</pre>";
-            // res.writeHead(200, {'Content-Type': 'text/html'});
-            // res.end(output);
-            res.json(user);
-            console.log(user);
-        });
-    } else {
-        console.log("Couldn't verify user was authenticated. Redirecting to /");
-        res.redirect("/");
-    }
+    //         // Send output as response
+    //         // var output = "<h1>Your User Details</h1><pre>" + user + "</pre>";
+    //         // res.writeHead(200, {'Content-Type': 'text/html'});
+    //         // res.end(output);
+    //         console.log(user);
+    //         res.redirect('/');
+    //         // res.json({'user' : user});
+
+    //     });
+    // } else {
+    //     console.log("Couldn't verify user was authenticated. Redirecting to /");
+    //     res.redirect("/");
+    // }
 };
