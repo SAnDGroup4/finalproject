@@ -108,7 +108,7 @@ angular.module('myApp.controllers', ['ngRoute']).
 
     $scope.addBook = function()
       {
-      http({
+      $http({
 
       method : 'POST',
       url: '/course/addcourse',
@@ -116,8 +116,7 @@ angular.module('myApp.controllers', ['ngRoute']).
             Classroom : $scope.classVenue, Note: 'English-taught class',
             year: '103', semester: '1'},
       //headers : {'Content-type' : 'application/json'} 
-      })//.success(function(data, status, headers, config){
-
+      }).
       success(function (data, status, headers, config) {
         $scope.courses = data;
       }).

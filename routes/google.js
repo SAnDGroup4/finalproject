@@ -160,12 +160,12 @@ exports.createUser = function(req, res) {
 	    console.log('Encountered error', err);
 	  } else {
 	  	console.log('create root folder');
-	  	request.post({url:'http://localhost:8080/createfolder', form: {folder_name:'gCeiba', description: 'gCeiba Root Folder'}}
-			,function(err,httpResponse,body){
-				console.log(err);
-				console.log(body);
-				rootFolderID = body.id;
-		})
+	 //  	request.post({url:'http://localhost:8080/createfolder', form: {folder_name:'gCeiba', description: 'gCeiba Root Folder'}}
+		// 	,function(err,httpResponse,body){
+		// 		console.log(err);
+		// 		console.log(body);
+		// 		rootFolderID = body.id;
+		// })
 
 	  	user.build({GACCOUNT: response.user.emailAddress, G_REFRESH_TOKEN: oauth2Client.credentials.refresh_token,
 			ADMIN: 1, UNAME: response.name})
