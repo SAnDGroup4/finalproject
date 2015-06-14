@@ -12,17 +12,57 @@ var OAuth2 = google.auth.OAuth2;
 var request = require('request');
 var drive = google.drive('v2');
 var user = require('./user.js');
+var rootFolderID = '';
+
 
 // var qs = require("qs");
 
-// var local = require("../config/local");
-// var Sequelize = require('sequelize');
-// var sequelize = new Sequelize(
-// 		local.model.mysql.database,
-// 		local.model.mysql.account,
-// 		local.model.mysql.password,
-// 		local.model.mysql.options
-// );
+var local = require("../config/local");
+var Sequelize = require('sequelize');
+var sequelize = new Sequelize(
+		local.model.mysql.database,
+		local.model.mysql.account,
+		local.model.mysql.password,
+		local.model.mysql.options
+);
+var file = sequelize.define('File', {
+        FID: Sequelize.TEXT, 
+        FPARENT:Sequelize.TEXT,
+        FNAME:Sequelize.TEXT,
+        FOWNER:Sequelize.TEXT,
+    },{
+        tableName: 'SA_file'
+    });
+
+var user = sequelize.define('User', {
+        UID: { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true }, 
+        UACCOUNT : Sequelize.TEXT,
+        UPASSWORD : Sequelize.TEXT,
+        GACCOUNT : Sequelize.TEXT,
+        G_REFRESH_TOKEN : Sequelize.TEXT,
+        ADMIN : Sequelize.BOOLEAN,
+        UNAME : Sequelize.TEXT,
+        STUID : Sequelize.TEXT
+    },{
+        tableName: 'SA_user'
+    });
+
+var course = sequelize.define('Course', {
+    
+        CID: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true }, 
+        CNAME:Sequelize.TEXT,
+        CINFO:Sequelize.TEXT,
+        CTEACHER:Sequelize.TEXT,
+        CYEAR:Sequelize.TEXT,
+        CSEMESTER:Sequelize.TEXT,
+        CNUMBER:Sequelize.TEXT,
+        CTIME:Sequelize.TEXT,
+        CCLASSROOM:Sequelize.TEXT,
+        CTARGET:Sequelize.TEXT,
+        Note:Sequelize.TEXT
+    },{
+        tableName: 'SA_course'
+});
 
 // var state = ''
 //   , access_token = ''
@@ -85,8 +125,6 @@ exports.callback = function(req, res) {
     var code = req.query.code
       , cb_state = req.query.state
       , error = req.query.error;
-  	console.log('get callback');
-  	console.log(req.session.isLogin);
     // Verify the 'state' variable generated during '/login' equals what was passed back
     if (state == cb_state) {
         if (code !== undefined) {
@@ -116,49 +154,86 @@ exports.callback = function(req, res) {
 
 exports.createUser = function(req, res) {
 	req.session.isLogin = true;
-  	// var access_token;
-  	// oauth2Client.getAccessToken(function(err, token, response){
-  	// 	access_token = token;
-  	// 	req.session.token = token;
-  	// });
-	var params={auth: oauth2Client };
+	var params={'auth': oauth2Client };
   	drive.about.get(params, function (err, response) {
 	  if (err) {
 	    console.log('Encountered error', err);
 	  } else {
+	  	console.log('create root folder');
+	  	request.post({url:'http://localhost:8080/createfolder', form: {folder_name:'gCeiba', description: 'gCeiba Root Folder'}}
+			,function(err,httpResponse,body){
+				console.log(err);
+				console.log(body);
+				rootFolderID = body.id;
+		})
 
-	    console.log('response: ', response.user.emailAddress);
-	    console.log(response.name);
+	  	user.build({GACCOUNT: response.user.emailAddress, G_REFRESH_TOKEN: oauth2Client.credentials.refresh_token,
+			ADMIN: 1, UNAME: response.name})
+		.save().then().catch(function(err){
+	            console.log(err);
+		});
 	  }
 	});
-
   	res.redirect('/');
-    // Check to see if user has an access_token first
-    // if (access_token) {
-      
-    //     // URL endpoint and params needed to make the API call  
-    //     var url = "https://www.googleapis.com/drive/v2/about";
-    //     var params = {
-    //     	fields: user,
-    //         key: access_token
-    //     };
+};
 
-    //     // Send the request
-    //     request.get({url: url, qs: params}, function(err, resp, user) {
-    //         // Check for errors
-    //         if (err) return console.error("Error occured: ", err);
-            
-    //         // Send output as response
-    //         // var output = "<h1>Your User Details</h1><pre>" + user + "</pre>";
-    //         // res.writeHead(200, {'Content-Type': 'text/html'});
-    //         // res.end(output);
-    //         console.log(user);
-    //         res.redirect('/');
-    //         // res.json({'user' : user});
+exports.createFolder = function(req, res){
+	var folder_name = req.body.folder_name;
+	var under_id = req.body.under_id;
+	var description = req.body.description;
+	var folder_id = "";
+	var params = {
+		"title": folder_name,
+		"parents": [{"id":under_id}],
+	  	"mimeType": "application/vnd.google-apps.folder",
+	};
+	drive.files.insert({'resource':params, "auth": oauth2Client}, function (err, response) {
+		if(err){
+			console.log('Encountered error', err);
+		} else{
+			file.build({FID: response.id, FPARENT: response.parents[0].id,
+	  		FNAME: folder_name, FOWNER: response.ownerNames[0]})
+	  		.save().then(function(folder){
+	  			console.log(folder);
+	  			res.json(folder);
+	  		}).catch(function(err){
+	  			console.log(err);
+	  		});
+		}
 
-    //     });
-    // } else {
-    //     console.log("Couldn't verify user was authenticated. Redirecting to /");
-    //     res.redirect("/");
-    // }
+	});
+
+};
+
+function getRootID(){
+
+}
+
+
+exports.addCourse = function(req, res){
+	var cname = req.body.Course_name;
+	var year = req.body.year;
+	var semester = req.body.semester;
+	var time = req.body.Time;
+	var room = req.body.Classroom;
+	var note = req.body.Note;
+	course.build({CNAME: cname, CYEAR: year, CSEMESTER: semester,
+		CTIME:time, CCLASSROOM: room, Note: note})
+	.save().then(function(course){
+		var folderid='';
+		request.post({url:'/createfolder', form: {folder_name:cname, description: 'course root folder', under_id: rootFolderID}}, 
+			function(err,httpResponse,body){folderid = httpResponse.id;});
+
+		request.post({url:'/createfolder', form: {folder_name:''+year+'-'+semester, under_id: folderid}}, 
+			function(err,httpResponse,body){folderid = httpResponse.id;});
+
+		request.post({url:'/createfolder', form: {folder_name:'HW', under_id: folderid}}, 
+			function(err,httpResponse,body){folderid = httpResponse.id;});
+
+		request.post({url:'/createfolder', form: {folder_name:'Project', under_id: folderid}}, 
+			function(err,httpResponse,body){folderid = httpResponse.id;});
+
+	}).catch(function(err){
+		console.log(err);
+	});
 };

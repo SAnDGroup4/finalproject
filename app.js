@@ -108,9 +108,10 @@ app.get('/logout', function(req, res){
 // app.get('/api/tokensignin', api.tokenSignIn);
 app.post('/token', google.getToken);
 // Course API
+app.post('/course/addcourse', google.addCourse);
 app.get('/course/listcourses', course.listCourses); //list all courses
 app.get('/course/:year/:semester', course.listCoursesBySemester); //list courses by specifying semester
-
+app.post('/createfolder', google.createFolder);
 // User API
 app.get('/user/listusers', user.listUsers);
 

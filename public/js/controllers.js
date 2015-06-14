@@ -32,8 +32,8 @@ angular.module('myApp.controllers', ['ngRoute']).
               function createPicker() {
                 if (pickerApiLoaded) {
                   var picker = new google.picker.PickerBuilder().
-                      addView(new google.picker.DocsView().setParent('')).
-                      addView(new google.picker.DocsUploadView()).
+                      addView(new google.picker.DocsView().setParent('0By1_ThVGOOUFfkU4aDRpQmwzX0V0eElRQmdVVWZxbERUUTVHSDYzeTRMME5CMktmOW1oakU')).
+                      addView(new google.picker.DocsUploadView().setParent('0By1_ThVGOOUFfkU4aDRpQmwzX0V0eElRQmdVVWZxbERUUTVHSDYzeTRMME5CMktmOW1oakU')).
                       setOAuthToken(oauthToken).
                       setDeveloperKey('AIzaSyDaTJUsZ-Fz329lKw5tTcry4DZIq_5s_tY').
                       // setCallback(pickerCallback).
