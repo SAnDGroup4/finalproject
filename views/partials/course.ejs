@@ -27,9 +27,9 @@
       <option value="2013/1">102-1</option>
     </select>
 
-    <select class="ui dropdown" ng-model="course" ng-options="coursed.CNAME for coursed in courses">
+    <!-- <select class="ui dropdown" ng-model="course" ng-options="coursed.CNAME for coursed in courses">
       <option value="">Course</option>
-    </select>
+    </select> -->
 
 
 
@@ -41,20 +41,36 @@
 <table class="ui collapsing table segment">
   <thead>
     <tr>
-    <th width ="7%">Course No</th>    
-    <th width="18%">Course Title</th>
-    <th width="8%">Time</th>
-    <th width="8%">Classroom</th>
-    <th width="38%">Description</th>
+    <!-- <th width ="7%">Course No</th>   -->  
+    <th width="16%">Course Title</th>
+    <th width="7%">Academic Year</th>
+    <th width="7%">Semester</th>
+    <th width="35%">Description</th>
     <th width="7%">Instructor</th>
-    <th width="9%">Designated for</th>
+    <!-- <th width="9%">Designated for</th> -->
+    <th width="7%">Time</th>
+    <th width="7%">Classroom</th>
     <th width="5%">Action</th>
+
 
   </tr></thead>
   <tbody>
-    <tr>
+    <tr ng-repeat="course in courses">
       <!-- Call database -->
-      <td>{{coursebyname.CID}}</td>     
+      <!-- <td>{{course.CID}}</td>  -->    
+      <td>{{course.CNAME}}</td>
+      <td>{{course.CYEAR}}</td>
+      <td>{{course.CSEMESTER}}</td>
+      <td>{{course.CINFO}}</td>
+      <td>{{course.CTEACHER}}</td>
+     <!--  <td>{{coursebyname.CTARGET}}</td> -->
+      <td>{{course.CTIME}}</td>
+      <td>{{course.CCLASSROOM}}</td>
+      <td>
+      <a href="/course2"><div class="ui button">Edit</div></a>
+    
+    </td>
+      <!-- <td>{{coursebyname.CID}}</td>     
       <td>{{coursebyname.CNAME}}</td>
       <td>{{coursebyname.CTIME}}</td>
       <td>{{coursebyname.CCLASSROOM}}</td>
@@ -64,7 +80,7 @@
       <td>
       <a href="/course2"><div class="ui button">Edit</div></a>
     
-    </td>
+    </td> -->
     </tr>
     <!-- <tr>
       <td>IM 5034</td>

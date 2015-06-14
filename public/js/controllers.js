@@ -57,19 +57,19 @@ angular.module('myApp.controllers', ['ngRoute']).
     
   }).
   controller('Course', function ($rootScope, $window, $scope, $http, $state, $location) {
-    // $http({
-    //   method: 'GET',
-    //   url: '/course/listcourses'
-    // }).
-    // success(function (data, status, headers, config) {
-    //   $scope.courses = data;
-    // }).
-    // error(function (data, status, headers, config) {
-    //   $scope.cname = 'Error!';
-    // });
-    //$scope.courses={};
+    $http({
+      method: 'GET',
+      url: '/course/listcourses'
+    }).
+    success(function (data, status, headers, config) {
+      $scope.courses = data;
+    }).
+    error(function (data, status, headers, config) {
+      $scope.cname = 'Error!';
+    });
+    $scope.courses={};
 
-     $scope.$watch('semester', function(newValue, oldValue) {
+    $scope.$watch('semester', function(newValue, oldValue) {
       $http({
         method: 'GET',
         url: '/course/'+$scope.semester
@@ -81,18 +81,31 @@ angular.module('myApp.controllers', ['ngRoute']).
         $scope.cname = 'Error!';
       });
     },true);
-    $scope.$watch('course', function(newValue, oldValue) {
-      $http({
-        method: 'GET',
-        url: '/coursename/'+$scope.course
-      }).
-      success(function (data, status, headers, config) {
-        $scope.coursebyname = data;
-      }).
-      error(function (data, status, headers, config) {
-        $scope.coursebyname = 'Error!';
-      });
-    },true);
+
+    //  $scope.$watch('semester', function(newValue, oldValue) {
+    //   $http({
+    //     method: 'GET',
+    //     url: '/course/'+$scope.semester
+    //   }).
+    //   success(function (data, status, headers, config) {
+    //     $scope.courses = data;
+    //   }).
+    //   error(function (data, status, headers, config) {
+    //     $scope.cname = 'Error!';
+    //   });
+    // },true);
+    // $scope.$watch('course', function(newValue, oldValue) {
+    //   $http({
+    //     method: 'GET',
+    //     url: '/coursename/'+$scope.course
+    //   }).
+    //   success(function (data, status, headers, config) {
+    //     $scope.coursebyname = data;
+    //   }).
+    //   error(function (data, status, headers, config) {
+    //     $scope.coursebyname = 'Error!';
+    //   });
+    // },true);
   }).
   controller('Course2', function ($rootScope, $window, $scope, $http, $state, $location) {
 
