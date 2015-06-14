@@ -48,6 +48,8 @@ exports.listCoursesBySemester = function(req, res){
 
 
 
+
+
 // CREATE TABLE IF NOT EXISTS `course` (
 //   `CID` int(11) NOT NULL AUTO_INCREMENT,
 //   `CNAME` text NOT NULL,
