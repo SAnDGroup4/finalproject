@@ -1,16 +1,19 @@
-
+var request = require('request');
 /*
  * GET home page.
  */
 
 exports.index = function(req, res){
-	sess = req.session;
-	if(sess.email){
-		res.render('index');
-	}
-	else{
-		// res.render('login');
-		res.render('index');
+	var config = {};
+    config.isLogin = req.session.isLogin ? true : false;
+    request.post({url: 'http://localhost:8080/token'});
+    config.token = req.session.token;
+    console.log(config.token);
+    if(config.isLogin){
+        res.render('index', config);
+    }
+    else{
+        res.render('login', config);
 	}
 };
 

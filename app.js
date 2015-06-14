@@ -7,33 +7,50 @@ var express = require('express'),
   bodyParser = require('body-parser'),
   methodOverride = require('method-override'),
   errorHandler = require('express-error-handler'),
-  session = require('express-session'),
-  // cookieParser = require('cookie-parser'),
+  google = require('./routes/google'),
   morgan = require('morgan'),
   routes = require('./routes'),
   api = require('./routes/api'),
-  google = require('./routes/google'),
-  course = require('./routes/course'),
   user = require('./routes/user'),
+  course = require('./routes/course'),
   http = require('http'),
+  session = require('express-session'),
+  local = require('./config/local'),
   path = require('path'),
-  passport = require('passport');
-var _ = require('underscore');
-var request = require('request');
+  _ = require('underscore');
+
 var local = require('./config/local');
 
 var app = module.exports = express();
 
-
 /**
  * Configuration
  */
-// app.use(cookieParser());
+var RedisStore = require('connect-redis')(session);
+var sessionRedis = new RedisStore(local.session.redis);
+
+function allowCrossDomain(req, res, next) {
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+
+  var origin = req.headers.origin;
+  if (_.contains(app.get('allowed_origins'), origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+
+  if (req.method === 'OPTIONS') {
+    res.send(200);
+  } else {
+    next();
+  }
+}
+
+
 app.use(session({
-    secret: "hihihi",
+    // store: sessionRedis,
+    secret: "SAfinalproject",
     cookie: {
-      expires: new Date(Date.now() + 24*60*60*1000),
-      maxAge: 24*60*60*1000
+      expires: new Date(Date.now() + 30*24*60*60*1000),
+      maxAge: 30*24*60*60*1000
     },
     resave: true,
     saveUninitialized: true
@@ -49,6 +66,7 @@ app.use(bodyParser.urlencoded({
   extended: true
 }));
 app.use(bodyParser.json());
+app.use(allowCrossDomain);
 app.use(methodOverride());
 app.use(express.static(path.join(__dirname, 'public')));
 // app.use(require('connect-livereload')());
@@ -78,7 +96,7 @@ app.get('/partial/:name', routes.partial);
 app.get('/api/name', api.name);
 app.get('/glogin', google.glogin);
 app.get('/callback', google.callback);
-app.get('/user', google.user);
+app.get('/user', google.createUser);
 app.get('/logout', function(req, res){
   // req.logout();
   req.session.destroy(function() {
@@ -88,7 +106,7 @@ app.get('/logout', function(req, res){
 
 // Google API
 // app.get('/api/tokensignin', api.tokenSignIn);
-
+app.post('/token', google.getToken);
 // Course API
 app.get('/course/listcourses', course.listCourses); //list all courses
 app.get('/course/:year/:semester', course.listCoursesBySemester); //list courses by specifying semester

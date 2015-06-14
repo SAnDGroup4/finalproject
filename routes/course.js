@@ -16,6 +16,10 @@ var course = sequelize.define('Course', {
         CINFO:Sequelize.TEXT,
         CTEACHER:Sequelize.TEXT,
         CYEAR:Sequelize.DATE,
+        CNUMBER:Sequelize.TEXT,
+        CTIME:Sequelize.TEXT,
+        CCLASSROOM:Sequelize.TEXT,
+        CTARGET:Sequelize.TEXT,
         CSEMESTER:Sequelize.DATE
     },{
         tableName: 'SA_course'
@@ -41,6 +45,8 @@ exports.listCoursesBySemester = function(req, res){
         console.log(err);
     })
 };
+
+
 
 
 

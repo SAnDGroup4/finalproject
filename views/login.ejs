@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en" ng-app="myApp">
     <head>
+<<<<<<< HEAD
 		<style>
 		.login
 		{
@@ -16,5 +17,26 @@
 				Login with Google
 			</div></a>
 		</div>
+=======
+    <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.min.js"></script>
+    <script type="text/javascript">
+		var url = '';
+		var w = '';
+		$(document).ready(function() { 
+			$.get('/glogin', function(data) {
+				url = data;
+			});
+			var interval = window.setInterval((function() {
+			 	if (w.closed) {
+			 		window.clearInterval(interval);
+			 		window.location = '/user';
+			 	}
+			 }),1000);
+		});
+	</script>
+    </head>
+    <body>
+		<button onclick="w = window.open(url, 'window', 'status=0,menubar=0,resizable=1,width=500,height=500;')">Login to Google</button>
+>>>>>>> 4c7a9455ffe2ba488b5120000626d81667a46047
     </body>
 </html>

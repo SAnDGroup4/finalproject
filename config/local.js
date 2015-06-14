@@ -13,5 +13,12 @@ module.exports = {
 				logging: false
 			}
 		}
-	}
+	},
+	session: {
+		redis: {
+			host: 'pub-redis-14195.us-east-1-2.2.ec2.garantiadata.com',
+			port: 14195,
+			pass: "final"
+		}
+    }
 }
