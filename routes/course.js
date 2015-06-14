@@ -46,7 +46,14 @@ exports.listCoursesBySemester = function(req, res){
     })
 };
 
-
+exports.listCoursesByName = function(req, res){
+    var name = req.params.name;
+    course.find({where: {CNAME : name}}).then(function(course){
+        res.json(course);
+    }).catch(function(err){
+        console.log(err);
+    })
+};
 
 
 

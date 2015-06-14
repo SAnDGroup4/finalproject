@@ -27,7 +27,7 @@
       <option value="2013/1">102-1</option>
     </select>
 
-    <select class="ui dropdown" ng-model="course" ng-options="course.CNAME for course in courses">
+    <select class="ui dropdown" ng-model="course" ng-options="coursed.CNAME for coursed in courses">
       <option value="">Course</option>
     </select>
 
@@ -52,15 +52,15 @@
 
   </tr></thead>
   <tbody>
-    <tr ng-repeat="course in courses">
+    <tr>
       <!-- Call database -->
-      <td>{{course.CID}}</td>     
-      <td>{{course.CNAME}}</td>
-      <td>{{course.CTIME}}</td>
-      <td>{{course.CCLASSROOM}}</td>
-      <td>{{course.CINFO}}</td>
-      <td>{{course.CTEACHER}}</td>
-      <td>{{course.CTARGET}}</td>
+      <td>{{coursebyname.CID}}</td>     
+      <td>{{coursebyname.CNAME}}</td>
+      <td>{{coursebyname.CTIME}}</td>
+      <td>{{coursebyname.CCLASSROOM}}</td>
+      <td>{{coursebyname.CINFO}}</td>
+      <td>{{coursebyname.CTEACHER}}</td>
+      <td>{{coursebyname.CTARGET}}</td>
       <td>
       <a href="/course2"><div class="ui button">Edit</div></a>
     
@@ -104,7 +104,7 @@
     <th>Action</th>
   </tr></thead>
   <tbody>
-    <tr ng-repeat="course in courses">
+    <tr ng-repeat="course in courses123">
       <td>{{course.CID}}</td>
 
       <td>{{course.CNAME}}</td>

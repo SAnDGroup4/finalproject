@@ -110,7 +110,7 @@ app.post('/token', google.getToken);
 // Course API
 app.get('/course/listcourses', course.listCourses); //list all courses
 app.get('/course/:year/:semester', course.listCoursesBySemester); //list courses by specifying semester
-
+app.get('/coursename/:name',course.listCoursesByName);
 // User API
 app.get('/user/listusers', user.listUsers);
 
