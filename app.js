@@ -112,6 +112,7 @@ app.post('/course/addcourse', google.addCourse);
 app.get('/course/listcourses', course.listCourses); //list all courses
 app.get('/course/:year/:semester', course.listCoursesBySemester); //list courses by specifying semester
 app.post('/createfolder', google.createFolder);
+app.get('/coursename/:name',course.listCoursesByName);
 // User API
 app.get('/user/listusers', user.listUsers);
 
