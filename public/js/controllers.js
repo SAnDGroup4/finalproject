@@ -159,16 +159,17 @@ angular.module('myApp.controllers', ['ngRoute']).
       });
     },true);
     $scope.$watch('course', function(newValue, oldValue) {
-      $http({
-        method: 'GET',
-        url: '/course/'+$scope.semester
-      }).
-      success(function (data, status, headers, config) {
-        $scope.courses = data;
-      }).
-      error(function (data, status, headers, config) {
-        $scope.cname = 'Error!';
-      });
+      // $scope.name=course.CNAME;
+      // $http({
+      //   method: 'GET',
+      //   url: '/course/'+$scope.semester
+      // }).
+      // success(function (data, status, headers, config) {
+      //   $scope.courses = data;
+      // }).
+      // error(function (data, status, headers, config) {
+      //   $scope.cname = 'Error!';
+      // });
     },true);
   }).
   controller('PersonalInfo', function ($rootScope, $scope, $location, $http) {
