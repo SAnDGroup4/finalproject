@@ -68,19 +68,19 @@ angular.module('myApp.controllers', ['ngRoute']).
     error(function (data, status, headers, config) {
       $scope.cname = 'Error!';
     });
-    $scope.courses={};
-
     $scope.$watch('semester', function(newValue, oldValue) {
-      $http({
-        method: 'GET',
-        url: '/course/'+$scope.semester
-      }).
-      success(function (data, status, headers, config) {
-        $scope.courses = data;
-      }).
-      error(function (data, status, headers, config) {
-        $scope.cname = 'Error!';
-      });
+      if(newValue !== ""){
+        $http({
+          method: 'GET',
+          url: '/course/'+newValue
+        }).
+        success(function (data, status, headers, config) {
+          $scope.courses = data;
+        }).
+        error(function (data, status, headers, config) {
+          $scope.cname = 'Error!';
+        });
+      }
     },true);
 
     //  $scope.$watch('semester', function(newValue, oldValue) {
@@ -126,8 +126,8 @@ angular.module('myApp.controllers', ['ngRoute']).
       method : 'POST',
       url: '/course/addcourse',
       data: {Course_name: $scope.courseName, Time : $scope.courseTime, 
-            Classroom : $scope.classVenue, Note: 'English-taught class',
-            year: '103', semester: '1'},
+            Classroom : $scope.classVenue, Note: $scope.note,
+            year: $scope.courseYear, semester: $scope.courseSemester},
       //headers : {'Content-type' : 'application/json'} 
       }).
       success(function (data, status, headers, config) {

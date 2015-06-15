@@ -160,15 +160,15 @@ exports.createUser = function(req, res) {
 	  if (err) {
 	    console.log('Encountered error', err);
 	  } else {
-	  	console.log('create root folder');
-	  	request.post({url:'http://localhost:8080/createfolder', 
-	  		form: {folder_name:'gCeiba', description: 'gCeiba Root Folder'}},
-			function(err,httpResponse,body){
-				console.log(err);
-				console.log(body);
-				console.log(httpResponse);
-				rootFolderID = body.id;
-		})
+	  	// console.log('create root folder');
+	 //  	request.post({url:'http://localhost:8080/createfolder', 
+	 //  		form: {folder_name:'gCeiba', description: 'gCeiba Root Folder'}},
+		// 	function(err,httpResponse,body){
+		// 		console.log(err);
+		// 		console.log(body);
+		// 		console.log(httpResponse);
+		// 		rootFolderID = body.id;
+		// })
 
 	 //  	user.findOrCreate({GACCOUNT: response.user.emailAddress, G_REFRESH_TOKEN: oauth2Client.credentials.refresh_token,
 		// 	ADMIN: 1, UNAME: response.name,
@@ -242,20 +242,22 @@ exports.addCourse = function(req, res){
 	course.build({CNAME: cname, CYEAR: year, CSEMESTER: semester,
 		CTIME:time, CCLASSROOM: room, Note: note})
 	.save().then(function(course){
-		var folderid='';
-		request.post({url:'http://localhost:8080/createfolder', form: {folder_name:cname, description: 'course root folder', under_id: rootFolderID}}, 
-			function(err,httpResponse,body){folderid = body.id;});
+		// var folderid='';
+		// request.post({url:'http://localhost:8080/createfolder', form: {folder_name:cname, description: 'course root folder', under_id: rootFolderID}}, 
+		// 	function(err,httpResponse,body){folderid = body.id;});
 
-		request.post({url:'http://localhost:8080/createfolder', form: {folder_name:''+year+'-'+semester, under_id: folderid}}, 
-			function(err,httpResponse,body){folderid = body.id;});
+		// request.post({url:'http://localhost:8080/createfolder', form: {folder_name:''+year+'-'+semester, under_id: folderid}}, 
+		// 	function(err,httpResponse,body){folderid = body.id;});
 
-		request.post({url:'http://localhost:8080/createfolder', form: {folder_name:'HW', under_id: folderid}}, 
-			function(err,httpResponse,body){folderid = body.id;});
+		// request.post({url:'http://localhost:8080/createfolder', form: {folder_name:'HW', under_id: folderid}}, 
+		// 	function(err,httpResponse,body){folderid = body.id;});
 
-		request.post({url:'http://localhost:8080/createfolder', form: {folder_name:'Project', under_id: folderid}}, 
-			function(err,httpResponse,body){folderid = body.id;});
+		// request.post({url:'http://localhost:8080/createfolder', form: {folder_name:'Project', under_id: folderid}}, 
+		// 	function(err,httpResponse,body){folderid = body.id;});
 
 	}).catch(function(err){
 		console.log(err);
 	});
+	res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.end('http://localhost:8080/course');
 };
