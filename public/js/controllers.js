@@ -32,11 +32,12 @@ angular.module('myApp.controllers', ['ngRoute']).
               function createPicker() {
                 if (pickerApiLoaded) {
                   var picker = new google.picker.PickerBuilder().
-                      addView(new google.picker.DocsView()).
+                      addView(new google.picker.DocsView().setIncludeFolders(true)).
                       addView(new google.picker.DocsUploadView()).
+                      addView(google.picker.ViewId.RECENTLY_PICKED).
                       setOAuthToken(oauthToken).
                       setDeveloperKey('AIzaSyDaTJUsZ-Fz329lKw5tTcry4DZIq_5s_tY').
-                      // setCallback(pickerCallback).
+                      setCallback(pickerCallback).
                       build();
                   picker.setVisible(true);
                 }
@@ -47,7 +48,7 @@ angular.module('myApp.controllers', ['ngRoute']).
                   var doc = data[google.picker.Response.DOCUMENTS][0];
                   url = doc[google.picker.Document.URL];
                 }
-                var message = 'You picked: ' + url;
+                var message = 'You picked: <a href="' + url +'" target="_blank">' + url +'</a>';
                 document.getElementById('result').innerHTML = message;
               };
               onApiLoad();
@@ -133,6 +134,7 @@ angular.module('myApp.controllers', ['ngRoute']).
     }
   }).
   controller('Archive', function ($rootScope, $scope, $location, $http) {
+    
     $scope.$watch('semester', function(newValue, oldValue) {
       $http({
         method: 'GET',
