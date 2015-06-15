@@ -26,6 +26,7 @@ var sequelize = new Sequelize(
 		local.model.mysql.options
 );
 var file = sequelize.define('File', {
+		FFID: { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true },
         FID: Sequelize.TEXT, 
         FPARENT:Sequelize.TEXT,
         FNAME:Sequelize.TEXT,
@@ -159,17 +160,26 @@ exports.createUser = function(req, res) {
 	  if (err) {
 	    console.log('Encountered error', err);
 	  } else {
-	  	console.log('create root folder');
-	 //  	request.post({url:'http://localhost:8080/createfolder', form: {folder_name:'gCeiba', description: 'gCeiba Root Folder'}}
-		// 	,function(err,httpResponse,body){
+	  	// console.log('create root folder');
+	 //  	request.post({url:'http://localhost:8080/createfolder', 
+	 //  		form: {folder_name:'gCeiba', description: 'gCeiba Root Folder'}},
+		// 	function(err,httpResponse,body){
 		// 		console.log(err);
 		// 		console.log(body);
+		// 		console.log(httpResponse);
 		// 		rootFolderID = body.id;
 		// })
 
-	  	user.build({GACCOUNT: response.user.emailAddress, G_REFRESH_TOKEN: oauth2Client.credentials.refresh_token,
+	 //  	user.findOrCreate({GACCOUNT: response.user.emailAddress, G_REFRESH_TOKEN: oauth2Client.credentials.refresh_token,
+		// 	ADMIN: 1, UNAME: response.name,
+		// 	where:{GACCOUNT: response.user.emailAddress}})
+		// .then().catch(function(err){
+	 //            console.log(err);
+		// });
+
+		user.upsert({GACCOUNT: response.user.emailAddress}, {GACCOUNT: response.user.emailAddress, G_REFRESH_TOKEN: oauth2Client.credentials.refresh_token,
 			ADMIN: 1, UNAME: response.name})
-		.save().then().catch(function(err){
+		.then().catch(function(err){
 	            console.log(err);
 		});
 	  }
@@ -179,8 +189,13 @@ exports.createUser = function(req, res) {
 
 exports.createFolder = function(req, res){
 	var folder_name = req.body.folder_name;
-	var under_id = req.body.under_id;
-	var description = req.body.description;
+	var under_id = "";
+	console.log('create folder');
+	console.log(req.body.under_id);
+	console.log(req.body.description);
+	if (req.body.under_id !== undefined) under_id = req.body.under_id;
+	var description = "";
+	if (req.body.description !== undefined) description = req.body.description;
 	var folder_id = "";
 	var params = {
 		"title": folder_name,
@@ -191,8 +206,15 @@ exports.createFolder = function(req, res){
 		if(err){
 			console.log('Encountered error', err);
 		} else{
-			file.build({FID: response.id, FPARENT: response.parents[0].id,
-	  		FNAME: folder_name, FOWNER: response.ownerNames[0]})
+			// console.log(response.id);
+			// console.log(response.parents[0].id);
+			// console.log(folder_name);
+			// console.log(response.ownerNames[0]);
+			var fid = response.id;
+			var fparent = response.parents[0].id;
+			var fowner = response.ownerNames[0];
+			file.build({FID: fid, FPARENT: fparent,
+	  		FNAME: folder_name, FOWNER: fowner})
 	  		.save().then(function(folder){
 	  			console.log(folder);
 	  			res.json(folder);
@@ -220,20 +242,22 @@ exports.addCourse = function(req, res){
 	course.build({CNAME: cname, CYEAR: year, CSEMESTER: semester,
 		CTIME:time, CCLASSROOM: room, Note: note})
 	.save().then(function(course){
-		var folderid='';
-		request.post({url:'/createfolder', form: {folder_name:cname, description: 'course root folder', under_id: rootFolderID}}, 
-			function(err,httpResponse,body){folderid = httpResponse.id;});
+		// var folderid='';
+		// request.post({url:'http://localhost:8080/createfolder', form: {folder_name:cname, description: 'course root folder', under_id: rootFolderID}}, 
+		// 	function(err,httpResponse,body){folderid = body.id;});
 
-		request.post({url:'/createfolder', form: {folder_name:''+year+'-'+semester, under_id: folderid}}, 
-			function(err,httpResponse,body){folderid = httpResponse.id;});
+		// request.post({url:'http://localhost:8080/createfolder', form: {folder_name:''+year+'-'+semester, under_id: folderid}}, 
+		// 	function(err,httpResponse,body){folderid = body.id;});
 
-		request.post({url:'/createfolder', form: {folder_name:'HW', under_id: folderid}}, 
-			function(err,httpResponse,body){folderid = httpResponse.id;});
+		// request.post({url:'http://localhost:8080/createfolder', form: {folder_name:'HW', under_id: folderid}}, 
+		// 	function(err,httpResponse,body){folderid = body.id;});
 
-		request.post({url:'/createfolder', form: {folder_name:'Project', under_id: folderid}}, 
-			function(err,httpResponse,body){folderid = httpResponse.id;});
+		// request.post({url:'http://localhost:8080/createfolder', form: {folder_name:'Project', under_id: folderid}}, 
+		// 	function(err,httpResponse,body){folderid = body.id;});
 
 	}).catch(function(err){
 		console.log(err);
 	});
+	res.writeHead(200, {'Content-Type': 'text/plain'});
+    res.end('http://localhost:8080/course');
 };

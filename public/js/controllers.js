@@ -19,7 +19,7 @@ angular.module('myApp.controllers', ['ngRoute']).
         $rootScope.isLogin = false;
       });
     };
-    $rootScope.loadPicker=function(){
+    $rootScope.loadPicker=function(pid){
               var oauthToken = $rootScope.token;
               var pickerApiLoaded = false;
               function onApiLoad() {
@@ -32,11 +32,13 @@ angular.module('myApp.controllers', ['ngRoute']).
               function createPicker() {
                 if (pickerApiLoaded) {
                   var picker = new google.picker.PickerBuilder().
-                      addView(new google.picker.DocsView()).
-                      addView(new google.picker.DocsUploadView()).
+                      addView(new google.picker.DocsView().setIncludeFolders(true).setParent(pid)).
+                      addView(new google.picker.DocsUploadView().setParent(pid)).
+                      addView(google.picker.ViewId.RECENTLY_PICKED).
+                      enableFeature(google.picker.Feature.MULTISELECT_ENABLED).
                       setOAuthToken(oauthToken).
                       setDeveloperKey('AIzaSyDaTJUsZ-Fz329lKw5tTcry4DZIq_5s_tY').
-                      // setCallback(pickerCallback).
+                      setCallback(pickerCallback).
                       build();
                   picker.setVisible(true);
                 }
@@ -47,7 +49,7 @@ angular.module('myApp.controllers', ['ngRoute']).
                   var doc = data[google.picker.Response.DOCUMENTS][0];
                   url = doc[google.picker.Document.URL];
                 }
-                var message = 'You picked: ' + url;
+                var message = 'You picked: <a href="' + url +'" target="_blank">' + url +'</a>';
                 document.getElementById('result').innerHTML = message;
               };
               onApiLoad();
@@ -68,18 +70,17 @@ angular.module('myApp.controllers', ['ngRoute']).
       $scope.cname = 'Error!';
     });
     $scope.courses={};
-
     $scope.$watch('semester', function(newValue, oldValue) {
-      $http({
-        method: 'GET',
-        url: '/course/'+$scope.semester
-      }).
-      success(function (data, status, headers, config) {
-        $scope.courses = data;
-      }).
-      error(function (data, status, headers, config) {
-        $scope.cname = 'Error!';
-      });
+        $http({
+          method: 'GET',
+          url: '/course/'+newValue
+        }).
+        success(function (data, status, headers, config) {
+          $scope.courses = data;
+        }).
+        error(function (data, status, headers, config) {
+          $scope.cname = 'Error!';
+        });
     },true);
 
     //  $scope.$watch('semester', function(newValue, oldValue) {
@@ -125,8 +126,8 @@ angular.module('myApp.controllers', ['ngRoute']).
       method : 'POST',
       url: '/course/addcourse',
       data: {Course_name: $scope.courseName, Time : $scope.courseTime, 
-            Classroom : $scope.classVenue, Note: 'English-taught class',
-            year: '103', semester: '1'},
+            Classroom : $scope.classVenue, Note: $scope.note,
+            year: $scope.courseYear, semester: $scope.courseSemester},
       //headers : {'Content-type' : 'application/json'} 
       }).
       success(function (data, status, headers, config) {
@@ -146,6 +147,7 @@ angular.module('myApp.controllers', ['ngRoute']).
     }
   }).
   controller('Archive', function ($rootScope, $scope, $location, $http) {
+    
     $scope.$watch('semester', function(newValue, oldValue) {
       $http({
         method: 'GET',
@@ -159,16 +161,6 @@ angular.module('myApp.controllers', ['ngRoute']).
       });
     },true);
     $scope.$watch('course', function(newValue, oldValue) {
-      $http({
-        method: 'GET',
-        url: '/course/'+$scope.semester
-      }).
-      success(function (data, status, headers, config) {
-        $scope.courses = data;
-      }).
-      error(function (data, status, headers, config) {
-        $scope.cname = 'Error!';
-      });
     },true);
   }).
   controller('PersonalInfo', function ($rootScope, $scope, $location, $http) {
