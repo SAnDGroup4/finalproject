@@ -36,7 +36,11 @@ var user = sequelize.define('User', {
 //                 console.log(err);
 //     })
 // };
-
+exports.login = function(email, name){
+    // user.findOrCreate({
+    //     where: {UACCOUNT: email}
+    // }).then
+}
 
 exports.listUsers = function(req, res) {
     user.findAll().then(function(users){

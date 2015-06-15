@@ -26,14 +26,12 @@
           <td>
           	<div class="ui form">
 			  <div class="field">
-			    <input type="text" placeholder="e.g. System Analysis and Design...">
+			    <input type="text" placeholder="e.g. System Analysis and Design..." ng-model="courseName">
 			  </div>
 			</div>
           </td>
-
-   
         </tr>
-        <tr>
+<!--         <tr>
           <td>Designated For</td>
           <td>
           	<div class="ui form">
@@ -62,13 +60,13 @@
 			  </div>
 			</div>
           </td>
-        </tr>
+        </tr> -->
         <tr>
         	<td>Time</td>
         	<td>
     			<div class="ui form">
 			  	<div class="field">
-			    <input type="text" placeholder="e.g. Monday678">
+			    <input type="text" placeholder="e.g. Monday678" ng-model="courseTime">
 			  	</div>
 				</div>
         	</td>
@@ -78,7 +76,7 @@
         	<td>
         		<div class="ui form">
 			  <div class="field">
-			    <input type="text" placeholder="e.g. Room 102 College of Management Building II ">
+			    <input type="text" placeholder="e.g. Room 102 College of Management Building II " ng-model="classVenue">
 			  </div>
 			</div>
         	</td>
@@ -93,7 +91,27 @@
 			</div>
         	</td>
         </tr>
-         <tr>
+        <tr>
+          <td>Academic Year</td>
+          <td>
+            <div class="ui form">
+        <div class="field">
+          <input type="text" placeholder="e.g. 102, 103...">
+        </div>
+      </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Semester</td>
+          <td>
+            <div class="ui form">
+        <div class="field">
+          <input type="text" placeholder="e.g. spring semester/fall semester...">
+        </div>
+      </div>
+          </td>
+        </tr>
+         <!-- <tr>
         	<td>Course URL</td>
         	<td>
         		<div class="ui form">
@@ -184,16 +202,14 @@
 			  </div>
 			</div>
         	</td>
-        </tr>
+        </tr> -->
       </tbody>
     </table>
 
-    <button class="ui right floated button">
+    <button class="ui right floated button" ng-click="addBook()">
 	  	Submit
 	</button>
-	<div class="ui right floated button" tabindex="0">
-	  	Save
-	</div>
+
 <br>
 
 	<h2 class="ui header">
@@ -275,9 +291,7 @@
 	<button class="ui right floated button">
 	  	Submit
 	</button>
-	<div class="ui right floated button" tabindex="0">
-	  	Save
-	</div>
+	
 <br>
 <br>
 
@@ -373,9 +387,7 @@
 	<button class="ui right floated button">
 	  	Submit
 	</button>
-	<div class="ui right floated button" tabindex="0">
-	  	Save
-	</div>
+
 
 <br>  
 <br>

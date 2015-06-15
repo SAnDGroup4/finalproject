@@ -32,7 +32,7 @@ angular.module('myApp.controllers', ['ngRoute']).
               function createPicker() {
                 if (pickerApiLoaded) {
                   var picker = new google.picker.PickerBuilder().
-                      addView(new google.picker.DocsView().setParent('')).
+                      addView(new google.picker.DocsView()).
                       addView(new google.picker.DocsUploadView()).
                       setOAuthToken(oauthToken).
                       setDeveloperKey('AIzaSyDaTJUsZ-Fz329lKw5tTcry4DZIq_5s_tY').
@@ -67,6 +67,45 @@ angular.module('myApp.controllers', ['ngRoute']).
     error(function (data, status, headers, config) {
       $scope.cname = 'Error!';
     });
+    $scope.courses={};
+
+    $scope.$watch('semester', function(newValue, oldValue) {
+      $http({
+        method: 'GET',
+        url: '/course/'+$scope.semester
+      }).
+      success(function (data, status, headers, config) {
+        $scope.courses = data;
+      }).
+      error(function (data, status, headers, config) {
+        $scope.cname = 'Error!';
+      });
+    },true);
+
+    //  $scope.$watch('semester', function(newValue, oldValue) {
+    //   $http({
+    //     method: 'GET',
+    //     url: '/course/'+$scope.semester
+    //   }).
+    //   success(function (data, status, headers, config) {
+    //     $scope.courses = data;
+    //   }).
+    //   error(function (data, status, headers, config) {
+    //     $scope.cname = 'Error!';
+    //   });
+    // },true);
+    // $scope.$watch('course', function(newValue, oldValue) {
+    //   $http({
+    //     method: 'GET',
+    //     url: '/coursename/'+$scope.course
+    //   }).
+    //   success(function (data, status, headers, config) {
+    //     $scope.coursebyname = data;
+    //   }).
+    //   error(function (data, status, headers, config) {
+    //     $scope.coursebyname = 'Error!';
+    //   });
+    // },true);
   }).
   controller('Course2', function ($rootScope, $window, $scope, $http, $state, $location) {
 
@@ -76,6 +115,35 @@ angular.module('myApp.controllers', ['ngRoute']).
   }).
   controller('AddCourse', function ($rootScope, $window, $scope, $http, $state, $location) {
 
+    //$scope.$watch('name', function(newValue, oldValue) {
+    //  console.log($scope.name);
+    //},true);
+
+    $scope.addBook = function(){
+      $http({
+
+      method : 'POST',
+      url: '/course/addcourse',
+      data: {Course_name: $scope.courseName, Time : $scope.courseTime, 
+            Classroom : $scope.classVenue, Note: 'English-taught class',
+            year: '103', semester: '1'},
+      //headers : {'Content-type' : 'application/json'} 
+      }).
+      success(function (data, status, headers, config) {
+        $scope.courses = data;
+      }).
+      error(function (data, status, headers, config) {
+        $scope.cname = 'Error!';
+      });
+      /*if(data.success)
+      { 
+      $scope.courses.push(data); 
+       }
+
+      }).error(function(data, status, headers, config){
+        $scope.cname = 'Error!';
+      //set error message.*/
+    }
   }).
   controller('Archive', function ($rootScope, $scope, $location, $http) {
     $scope.$watch('semester', function(newValue, oldValue) {
