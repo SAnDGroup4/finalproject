@@ -19,7 +19,7 @@ angular.module('myApp.controllers', ['ngRoute']).
         $rootScope.isLogin = false;
       });
     };
-    $rootScope.loadPicker=function(){
+    $rootScope.loadPicker=function(pid){
               var oauthToken = $rootScope.token;
               var pickerApiLoaded = false;
               function onApiLoad() {
@@ -32,9 +32,10 @@ angular.module('myApp.controllers', ['ngRoute']).
               function createPicker() {
                 if (pickerApiLoaded) {
                   var picker = new google.picker.PickerBuilder().
-                      addView(new google.picker.DocsView().setIncludeFolders(true)).
-                      addView(new google.picker.DocsUploadView()).
+                      addView(new google.picker.DocsView().setIncludeFolders(true).setParent(pid)).
+                      addView(new google.picker.DocsUploadView().setParent(pid)).
                       addView(google.picker.ViewId.RECENTLY_PICKED).
+                      enableFeature(google.picker.Feature.MULTISELECT_ENABLED).
                       setOAuthToken(oauthToken).
                       setDeveloperKey('AIzaSyDaTJUsZ-Fz329lKw5tTcry4DZIq_5s_tY').
                       setCallback(pickerCallback).
@@ -68,8 +69,8 @@ angular.module('myApp.controllers', ['ngRoute']).
     error(function (data, status, headers, config) {
       $scope.cname = 'Error!';
     });
+    $scope.courses={};
     $scope.$watch('semester', function(newValue, oldValue) {
-      if(newValue !== ""){
         $http({
           method: 'GET',
           url: '/course/'+newValue
@@ -80,7 +81,6 @@ angular.module('myApp.controllers', ['ngRoute']).
         error(function (data, status, headers, config) {
           $scope.cname = 'Error!';
         });
-      }
     },true);
 
     //  $scope.$watch('semester', function(newValue, oldValue) {
@@ -161,17 +161,6 @@ angular.module('myApp.controllers', ['ngRoute']).
       });
     },true);
     $scope.$watch('course', function(newValue, oldValue) {
-      // $scope.name=course.CNAME;
-      // $http({
-      //   method: 'GET',
-      //   url: '/course/'+$scope.semester
-      // }).
-      // success(function (data, status, headers, config) {
-      //   $scope.courses = data;
-      // }).
-      // error(function (data, status, headers, config) {
-      //   $scope.cname = 'Error!';
-      // });
     },true);
   }).
   controller('PersonalInfo', function ($rootScope, $scope, $location, $http) {
