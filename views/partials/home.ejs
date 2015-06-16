@@ -1,4 +1,4 @@
-<br>
+<br><h2> </h2>
 		<select class="ui dropdown" ng-model="semester">
 		  <option value="">Semester</option>
 		  <option value="2014/2">103-2</option>
@@ -20,7 +20,9 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr>{{course.CNAME}}</tr>
+				<tr>
+					<td colspan=3><center>{{course.CNAME}}</center></td>
+				</tr>
 				<tr>
 					<td>{{course.CINFO}}</td>
 					<td>{{course.CYEAR}} {{course.CSEMESTER}}</td>
