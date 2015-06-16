@@ -1,38 +1,46 @@
-<div class="ui compact menu">
-	<div class="ui simple dropdown item">
-	  Semester
-	  <i class="dropdown icon"></i>
-	  <div class="menu">
-		<div class="item">All</div>
-		<div class="item">103-2</div>
-		<div class="item">103-1</div>
-	  </div>
-	</div>
-  </div>
+<br>
+		<select class="ui dropdown" ng-model="semester">
+		  <option value="">Semester</option>
+		  <option value="2014/2">103-2</option>
+		  <option value="2014/1">103-1</option>
+		  <option value="2013/2">102-2</option>
+		  <option value="2013/1">102-1</option>
+		</select>
 
-<div class="ui compact menu">
-	<div class="ui simple dropdown item">
-	  Course
-	  <i class="dropdown icon"></i>
-	  <div class="menu">
-		<div class="item">System Analysis and Design</div>
-		<div class="item">Information Technology and Innovation</div>
-		<div class="item">Project on Information Management (Ⅰ)</div>
-	  </div>
-	</div>
-  </div>
+		<select class="ui dropdown" ng-model="course2" ng-options="course.CNAME for course in courses">
+		  <option value="">Course</option>
+		</select>
 
-<div class="ui top attached tabular menu">
-	<a class="active item" data-tab="Class Information">Class Information</a>
-	<a class="item" data-tab="Personal Assignments">Personal Assignments</a>
-	<a class="item" data-tab="Group Projects">Group Projects</a>
-  </div>
-<div class="ui bottom attached active tab segment" data-tab="Class Information">
-	ClassInformation
-  </div>
-<div class="ui bottom attached tab segment" data-tab="Personal Assignments">
-	Personal Assignments
-  </div>
-<div class="ui bottom attached tab segment" data-tab="Group Projects">
-	Group Projects
-  </div>	
+		<table class="ui compact table">
+			<thead>
+				<tr>
+					<th>Class Information</th>
+					<th>Personal Assignment</th>
+					<th>Group Projects</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>{{course.CNAME}}</tr>
+				<tr>
+					<td>{{course.CINFO}}</td>
+					<td>{{course.CYEAR}} {{course.CSEMESTER}}</td>
+					<td>{{course.CTEACHER}} {{course.CTIME}}</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		
+		<div class="ui top attached tabular menu">
+			<a class="active item" data-tab="Class Information">Class Information</a>
+			<a class="item" data-tab="Personal Assignments">Personal Assignments</a>
+			<a class="item" data-tab="Group Projects">Group Projects</a>
+		  </div>
+		<div class="ui bottom attached active tab segment" data-tab="Class Information">
+			ClassInformation
+		  </div>
+		<div class="ui bottom attached tab segment" data-tab="Personal Assignments">
+			Personal Assignments
+		  </div>
+		<div class="ui bottom attached tab segment" data-tab="Group Projects">
+			Group Projects
+		  </div>	
