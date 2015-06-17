@@ -31,7 +31,7 @@ angular.module('myApp', [
     state('addcourse',{
       url: "/addcourse",
       templateUrl: 'partial/addcourse',
-      controller: 'AddCourse'
+      controller: 'Course'
     }).
     state('student',{
       url: "/student",
