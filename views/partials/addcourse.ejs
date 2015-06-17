@@ -17,7 +17,7 @@
     </div>
   </h2>
 
-  
+  <form action="/course">
 	<table class="ui definition table">
       
       <tbody>
@@ -31,36 +31,26 @@
 			</div>
           </td>
         </tr>
-<!--         <tr>
-          <td>Designated For</td>
+        <tr>
+          <td>Academic Year</td>
           <td>
-          	<div class="ui form">
-			  <div class="field">
-			    <input type="text" placeholder="department">
-			  </div>
-			</div>
+            <div class="ui form">
+        <div class="field">
+          <input type="text" placeholder="e.g. 102, 103..." ng-model="courseYear">
+        </div>
+      </div>
           </td>
         </tr>
         <tr>
-          <td>Course No</td>
-          <td>
-          	<div class="ui form">
-			  <div class="field">
-			    <input type="text" placeholder="e.g. IM3007, CSIE5324">
+				  <td>Semester</td>
+				  <td>
+					<div class="ui form">
+				<div class="field">
+				  <input type="text" placeholder="e.g. spring semester/fall semester..." ng-model="courseSemester">
+				</div>
 			  </div>
-			</div>
-          </td>
+				  </td>
         </tr>
-        <tr>
-          <td>Class</td>
-          <td>
-          	<div class="ui form">
-			  <div class="field">
-			    <input type="text" placeholder="class no.">
-			  </div>
-			</div>
-          </td>
-        </tr> -->
         <tr>
         	<td>Time</td>
         	<td>
@@ -90,26 +80,6 @@
 			  </div>
 			</div>
         	</td>
-        </tr>
-        <tr>
-          <td>Academic Year</td>
-          <td>
-            <div class="ui form">
-        <div class="field">
-          <input type="text" placeholder="e.g. 102, 103..." ng-model="courseYear">
-        </div>
-      </div>
-          </td>
-        </tr>
-        <tr>
-          <td>Semester</td>
-          <td>
-            <div class="ui form">
-        <div class="field">
-          <input type="text" placeholder="e.g. spring semester/fall semester..." ng-model="courseSemester">
-        </div>
-      </div>
-          </td>
         </tr>
          <!-- <tr>
         	<td>Course URL</td>
@@ -209,6 +179,7 @@
     <button class="ui right floated button" ng-click="addBook()">
 	  	Submit
 	</button>
+</form>
 
 <br>
 
