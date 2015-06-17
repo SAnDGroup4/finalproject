@@ -71,6 +71,7 @@ angular.module('myApp.controllers', ['ngRoute']).
       $scope.cname = 'Error!';
     });
     $scope.courses={};
+    $scope.$watch('course', function(){},true);
     $scope.$watch('semester', function(newValue, oldValue) {
         $http({
           method: 'GET',
@@ -84,37 +85,89 @@ angular.module('myApp.controllers', ['ngRoute']).
         });
     },true);
 
-    //  $scope.$watch('semester', function(newValue, oldValue) {
-    //   $http({
-    //     method: 'GET',
-    //     url: '/course/'+$scope.semester
-    //   }).
-    //   success(function (data, status, headers, config) {
-    //     $scope.courses = data;
-    //   }).
-    //   error(function (data, status, headers, config) {
-    //     $scope.cname = 'Error!';
-    //   });
-    // },true);
-    // $scope.$watch('course', function(newValue, oldValue) {
-    //   $http({
-    //     method: 'GET',
-    //     url: '/coursename/'+$scope.course
-    //   }).
-    //   success(function (data, status, headers, config) {
-    //     $scope.coursebyname = data;
-    //   }).
-    //   error(function (data, status, headers, config) {
-    //     $scope.coursebyname = 'Error!';
-    //   });
-    // },true);
+
+  $scope.addBook = function(){
+      $http({
+
+      method : 'POST',
+      url: '/course/addcourse',
+      data: {Course_name: $scope.courseName, year: $scope.academicYear,
+            semester: $scope.courseSemester, course_syllabus: $scope.syllabusURL,
+            teacher: $scope.courseInstructor, Time : $scope.courseTime, 
+            Classroom : $scope.classVenue
+            , },
+      //headers : {'Content-type' : 'application/json'} 
+      }).
+      success(function (data, status, headers, config) {
+        $scope.courses = data;
+      }).
+      error(function (data, status, headers, config) {
+        $scope.cname = 'Error!';
+      });
+      /*if(data.success)
+      { 
+      $scope.courses.push(data); 
+       }
+      }).error(function(data, status, headers, config){
+        $scope.cname = 'Error!';
+      //set error message.*/
+    }
+
+
   }).
   controller('Course2', function ($rootScope, $window, $scope, $http, $state, $location) {
 
-  }).
-  controller('Student', function ($rootScope, $window, $scope, $http, $state, $location) {
+    // $http({
+    //   method: 'GET',
+    //   url: '/course/listcourse'
+    // }).
+    // success(function (data, status, headers, config) {
+    //   $scope.courses = data;
+    // }).
+    // error(function (data, status, headers, config) {
+    //   $scope.cname = 'Error!';
+    // });
+    // $scope.courses={};
+    // $scope.$watch('semester', function(newValue, oldValue) {
+    //     $http({
+    //       method: 'GET',
+    //       url: '/course/'+newValue
+    //     }).
+    //     success(function (data, status, headers, config) {
+    //       $scope.courses = data;
+    //     }).
+    //     error(function (data, status, headers, config) {
+    //       $scope.cname = 'Error!';
+    //     });
+    // },true);
+
 
   }).
+  controller('Student', function ($rootScope, $window, $scope, $http, $state, $location) {
+      //   $scope.addStudent = function(){
+      // $http({
+
+      // method : 'POST',
+      // url: '/course/addcourse',
+      // data: {student_ID: $scope.SID, name: $scope.studentName,
+      //       major: $scope.studentMajor, grade: $scope.studentGrade
+      //       , },
+      // //headers : {'Content-type' : 'application/json'} 
+      // }).
+      // success(function (data, status, headers, config) {
+      //   $scope.courses = data;
+      // }).
+      // error(function (data, status, headers, config) {
+      //   $scope.cname = 'Error!';
+      // });
+  }).
+
+  controller('AddStudents', function ($rootScope, $window, $scope, $http, $state, $location) {
+
+
+
+  }).
+
   controller('AddCourse', function ($rootScope, $window, $scope, $http, $state, $location) {
 
     //$scope.$watch('name', function(newValue, oldValue) {

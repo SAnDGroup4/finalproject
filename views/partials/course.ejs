@@ -1,6 +1,22 @@
 
 <br>
 <div class="ui segment">
+<select class="ui dropdown" ng-model="semester">
+      <option value="">Semester</option>
+      <option value="2014/2">103-2</option>
+      <option value="2014/1">103-1</option>
+      <option value="2013/2">102-2</option>
+      <option value="2013/1">102-1</option>
+    </select>
+
+    <select class="ui dropdown" ng-model="course" ng-options="course.CNAME for course in courses">
+      <option value="">Course</option>
+    </select>
+
+
+<h1 class="ui header">{{course.CNAME}}</h1>
+
+
 <h2 class="ui dividing header">
   <div class="ui blue label">1.</div>
   Course Information
@@ -19,21 +35,13 @@
     </div>
   </div>
  -->
-		<select class="ui dropdown" ng-model="semester">
-		  <option value="">Semester</option>
-		  <option value="2014/2">103-2</option>
-		  <option value="2014/1">103-1</option>
-		  <option value="2013/2">102-2</option>
-		  <option value="2013/1">102-1</option>
-		</select>
-
-		<select class="ui dropdown" ng-model="course" ng-options="course.CNAME for course in courses">
-		  <option value="">Course</option>
-		</select>
+		
 		
   <div class="ui right floated button">
       <a href="/addcourse"><i class="plus icon"></i>Add New Course</a>
   </div>
+<br>
+<br>
 
 <table class="ui compact table">
   <thead>
@@ -80,22 +88,21 @@
 <table class="ui collapsing table segment">
   <thead>
     <tr>
-    <th>Course No</th>
 
-    <th>Course Title</th>
+    <th>Group ID</th>
 
-    <th>Number of students</th>
-    <th>Number of groups</th>
+    <!-- <th>Number of students</th>
+    <th>Number of groups</th> -->
     <th>Action</th>
   </tr></thead>
   <tbody>
-    <tr ng-repeat="course in courses">
-      <td>{{course.CID}}</td>
+    <tr>
+      <td>{{course.GID}}</td>
 
-      <td>{{course.CNAME}}</td>
+      <!-- <td>{{course.CNAME}}</td>
 
       <td>{{course.CNUMBER}}</td>
-      <td>{{course.CGROUP}}</td>
+      <td>{{course.CGROUP}}</td> -->
       <td>
       <a href="/student"><div class="ui button">More</div></a>
     
@@ -104,82 +111,4 @@
   </tbody>
   
 </table>
-
-<!-- Display after addcourse -->
-<select class="ui dropdown" ng-model="semester">
-  <option value="">Semester</option>
-  <option value="2014/2">103-2</option>
-  <option value="2014/1">103-1</option>
-  <option value="2013/2">102-2</option>
-  <option value="2013/1">102-1</option>
-</select>
-
-<select class="ui dropdown" ng-model="course" ng-options="course in courses">
-  <option value="">Course</option>
-</select>
-		
-  <div class="ui right floated button">
-      <a href="/addcourse"><i class="plus icon"></i>Add New Course</a>
-  </div>
-
-<table class="ui compact table">
-  <thead>
-    <tr>
-    <!-- <th width ="7%">Course No</th>   -->  
-    <th width="16%">Course Title</th>
-    <th width="7%">Academic Year</th>
-    <th width="7%">Semester</th>
-    <th width="35%">Description</th>
-    <th width="7%">Instructor</th>
-    <!-- <th width="9%">Designated for</th> -->
-    <th width="7%">Time</th>
-    <th width="7%">Classroom</th>
-    <th width="5%">Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <!-- Call database -->
-      <!-- <td>{{course.CID}}</td>  -->    
-      <td>{{course.CNAME}}</td>
-      <td>{{course.CYEAR}}</td>
-      <td>{{course.CSEMESTER}}</td>
-      <td>{{course.CINFO}}</td>
-      <td>{{course.CTEACHER}}</td>
-     <!--  <td>{{coursebyname.CTARGET}}</td> -->
-      <td>{{course.CTIME}}</td>
-      <td>{{course.CCLASSROOM}}</td>
-      <td>
-      <a href="/course2"><div class="ui button">Edit</div></a>
-    
-    </td>
-    </tr>
-	<tr>
-      <!-- Call database -->
-      <!-- <td>{{course.CID}}</td>  -->    
-      <td>{{course.courseName}}</td>
-      <td>{{course.courseYear}}</td>
-      <td>{{course.courseSemester}}</td>
-      <td>{{course.CINFO}}</td>
-      <td>{{course.CTEACHER}}</td>
-     <!--  <td>{{coursebyname.CTARGET}}</td> -->
-      <td>{{course.courseTime}}</td>
-      <td>{{course.classVenue}}</td>
-      <td>
-      <a href="/course2"><div class="ui button">Edit</div></a>
-		<!--	data: {Course_name: $scope.courseName, Time : $scope.courseTime, 
-					Classroom : $scope.classVenue, Note: $scope.note,
-					year: $scope.courseYear, semester: $scope.courseSemester}, -->
-    </td>
-    </tr>
-  </tbody>
-  
-</table>
-
-
-<br>
-<br>
-<br>
-
-</div>
 

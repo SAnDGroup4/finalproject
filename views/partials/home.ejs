@@ -1,4 +1,6 @@
+
 <br><h2> </h2>
+		<div class="ui segment">
 		<select class="ui dropdown" ng-model="semester">
 		  <option value="">Semester</option>
 		  <option value="2014/2">103-2</option>
@@ -11,18 +13,19 @@
 		  <option value="">Course</option>
 		</select>
 
+		<h2 class="ui header">{{course2.CNAME}}</h2>
+
 		<table class="ui compact table">
 			<thead>
+
 				<tr>
-					<th>Class Information</th>
-					<th>Personal Assignment</th>
-					<th>Group Projects</th>
+					<th width="60%">Class Information</th>
+					<th width="20%">Personal Assignment</th>
+					<th width="20%">Group Projects</th>
+
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
-					<td colspan=3><center><italic><h3>{{course2.CNAME}}</h3></italic></center></td>
-				</tr>
 				<tr>
 					<td><p>{{course2.CINFO}}</p></td>
 					<td><p>{{course2.ANAME}}</p><p>{{course2.ADETAIL}}</p><p>{{course2.ALINK}}</p></td>
@@ -45,4 +48,6 @@
 		  </div>
 		<div class="ui bottom attached active tab segment" data-tab="Group Projects">
 			<p>{{course2.CTEACHER}}</p>
-		  </div>	
+		  </div>
+
+</div>	
