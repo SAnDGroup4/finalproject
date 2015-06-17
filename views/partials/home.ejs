@@ -1,3 +1,8 @@
+		<link rel="stylesheet" href="/css/semantic.min.css">  
+        <link rel="stylesheet" href="/css/icon.min.css">
+        <link rel="stylesheet" href="/css/image.min.css">
+        <link rel='stylesheet', href='/css/app.css'>
+		<script src="js/semantic.min.js"></script>
 <br><h2> </h2>
 		<select class="ui dropdown" ng-model="semester">
 		  <option value="">Semester</option>
@@ -34,15 +39,15 @@
 		
 		<div class="ui top attached tabular menu">
 			<a class="active item" data-tab="Class Information">Class Information</a>
-			<a class="active item" data-tab="Personal Assignments">Personal Assignments</a>
-			<a class="active item" data-tab="Group Projects">Group Projects</a>
+			<a class="item" data-tab="Personal Assignments">Personal Assignments</a>
+			<a class="item" data-tab="Group Projects">Group Projects</a>
 		  </div>
 		<div class="ui bottom attached active tab segment" data-tab="Class Information">
-			ClassInformation
+			<p>{{course2.CINFO}}</p>
 		  </div>
 		<div class="ui bottom attached active tab segment" data-tab="Personal Assignments">
-			Personal Assignments
+			<p>{{course2.CNAME}}</p>
 		  </div>
 		<div class="ui bottom attached active tab segment" data-tab="Group Projects">
-			Group Projects
+			<p>{{course2.CTEACHER}}</p>
 		  </div>	
