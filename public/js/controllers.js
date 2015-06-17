@@ -56,7 +56,20 @@ angular.module('myApp.controllers', ['ngRoute']).
             };
   }).
   controller('Home', function ($rootScope, $scope, $location, $http) {
-    
+    $scope.$watch('semester', function(newValue, oldValue) {
+      $http({
+        method: 'GET',
+        url: '/course/'+$scope.semester
+      }).
+      success(function (data, status, headers, config) {
+        $scope.courses = data;
+      }).
+      error(function (data, status, headers, config) {
+        $scope.cname = 'Error!';
+      });
+    },true);
+    $scope.$watch('course', function(newValue, oldValue) {
+    },true);
   }).
   controller('Course', function ($rootScope, $window, $scope, $http, $state, $location) {
     $http({
