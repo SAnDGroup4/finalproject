@@ -1,16 +1,16 @@
 
 <br>
 <div class="ui segment">
-	
-	<div class="ui huge breadcrumb">
-	  <i class="left chevron icon divider"></i>
-	  <a href="/course"><div class="section">Course Info</a>
-	  <i class="left chevron icon divider"></i>
-	  <div class="active section">Add new course</div>
-	</div>
+  
+  <div class="ui huge breadcrumb">
+    <i class="left chevron icon divider"></i>
+    <a href="/course"><div class="section">Course Info</a>
+    <i class="left chevron icon divider"></i>
+    <div class="active section">Add new course</div>
+  </div>
 <br>
 
-	<h2 class="ui header">
+  <h2 class="ui header">
     <i class="info circle icon"></i>
     <div class="content">
       Basic Information
@@ -18,17 +18,17 @@
   </h2>
 
   <form action="/course">
-	<table class="ui definition table">
+  <table class="ui definition table">
       
       <tbody>
         <tr>
-          <td class="three wide column">Course Name</td>
+          <td class="three wide column">Course Title</td>
           <td>
-          	<div class="ui form">
-			  <div class="field">
-			    <input type="text" placeholder="e.g. System Analysis and Design..." ng-model="courseName">
-			  </div>
-			</div>
+            <div class="ui form">
+        <div class="field">
+          <input type="text" placeholder="e.g. System Analysis and Design..." ng-model="courseName">
+        </div>
+      </div>
           </td>
         </tr>
         <tr>
@@ -36,154 +36,175 @@
           <td>
             <div class="ui form">
         <div class="field">
-          <input type="text" placeholder="e.g. 102, 103..." ng-model="courseYear">
+          <input type="text" placeholder="e.g. 2014, 2015..." ng-model="academicYear">
         </div>
       </div>
           </td>
         </tr>
         <tr>
-				  <td>Semester</td>
-				  <td>
-					<div class="ui form">
-				<div class="field">
-				  <input type="text" placeholder="e.g. spring semester/fall semester..." ng-model="courseSemester">
-				</div>
-			  </div>
-				  </td>
+          <td>Semester</td>
+          <td>
+          <div class="ui form">
+        <div class="field">
+          <input type="text" placeholder="e.g. 1/2" ng-model="courseSemester">
+        </div>
+        </div>
+          </td>
         </tr>
         <tr>
-        	<td>Time</td>
-        	<td>
-    			<div class="ui form">
-			  	<div class="field">
-			    <input type="text" placeholder="e.g. Monday678" ng-model="courseTime">
-			  	</div>
-				</div>
-        	</td>
+          <td>Syllabus URL</td>
+          <td>
+          <div class="ui form">
+        <div class="field">
+          <input type="text" placeholder="e.g. spring semester/fall semester..." ng-model="syllabusURL">
+        </div>
+        </div>
+          </td>
+        </tr>
+        <tr>
+          <td>Instructor</td>
+          <td>
+            <div class="ui form">
+              <div class="field">
+                <input type="text" placeholder="instructor's name" ng-model="courseInstructor">
+              </div>
+            </div>  
+          </td>
+        </tr>
+        <tr>
+          <td>Time</td>
+          <td>
+          <div class="ui form">
+          <div class="field">
+          <input type="text" placeholder="e.g. Monday678" ng-model="courseTime">
+          </div>
+        </div>
+          </td>
         </tr>
          <tr>
-        	<td>Classroom</td>
-        	<td>
-        		<div class="ui form">
-			  <div class="field">
-			    <input type="text" placeholder="e.g. Room 102 College of Management Building II " ng-model="classVenue">
-			  </div>
-			</div>
-        	</td>
+          <td>Classroom</td>
+          <td>
+            <div class="ui form">
+        <div class="field">
+          <input type="text" placeholder="e.g. Room 102 College of Management Building II " ng-model="classVenue">
+        </div>
+      </div>
+          </td>
+        </tr>
+         <!--
+         <tr>
+          <td>Note</td>
+          <td>
+            <div class="ui form">
+        <div class="field">
+          <input type="text" placeholder="e.g. English-taught class" ng-model="note">
+        </div>
+      </div>
+          </td>
+        </tr>
+          <tr>
+          <td>Course URL</td>
+          <td>
+            <div class="ui form">
+        <div class="field">
+          <input type="text" placeholder="e.g. https://ceiba.ntu.edu.tw/XXXXX">
+        </div>
+      </div>
+          </td>
         </tr>
          <tr>
-        	<td>Note</td>
-        	<td>
-        		<div class="ui form">
-			  <div class="field">
-			    <input type="text" placeholder="e.g. English-taught class" ng-model="note">
-			  </div>
-			</div>
-        	</td>
-        </tr>
-         <!-- <tr>
-        	<td>Course URL</td>
-        	<td>
-        		<div class="ui form">
-			  <div class="field">
-			    <input type="text" placeholder="e.g. https://ceiba.ntu.edu.tw/XXXXX">
-			  </div>
-			</div>
-        	</td>
-        </tr>
-         <tr>
-        	<td>Core Capabilities and Curriculum Planning</td>
-        	<td>
-        	
-			  <div class="ui form">
-			  <div class="field">
-			    <input type="text" placeholder="course plan...">
-			  </div>
-			</div>
-			
-        	</td>
+          <td>Core Capabilities and Curriculum Planning</td>
+          <td>
+          
+        <div class="ui form">
+        <div class="field">
+          <input type="text" placeholder="course plan...">
+        </div>
+      </div>
+      
+          </td>
         </tr>
         <tr>
-        	<td>Description</td>
-        	<td>
-        		<div class="ui form">
-			  <div class="field">
-			    	<input type="text" placeholder="what the course is all about?">
-			  </div>
-			</div>
-        	</td>
+          <td>Description</td>
+          <td>
+            <div class="ui form">
+        <div class="field">
+            <input type="text" placeholder="what the course is all about?">
+        </div>
+      </div>
+          </td>
         </tr>
         <tr>
-        	<td>Objective</td>
-        	<td>
-        		<div class="ui form">
-			  <div class="field">
-			    <input type="text" placeholder="student's intended learning outcome...">
-			  </div>
-			</div>
-        	</td>
+          <td>Objective</td>
+          <td>
+            <div class="ui form">
+        <div class="field">
+          <input type="text" placeholder="student's intended learning outcome...">
+        </div>
+      </div>
+          </td>
         </tr>
         <tr>
-        	<td>Background</td>
-        	<td>
-        		<div class="ui form">
-			  <div class="field">
-			    <input type="text" placeholder="any prerequisite course has to be taken beforehand?">
-			  </div>
-			</div>
-        	</td>
+          <td>Background</td>
+          <td>
+            <div class="ui form">
+        <div class="field">
+          <input type="text" placeholder="any prerequisite course has to be taken beforehand?">
+        </div>
+      </div>
+          </td>
         </tr>
         <tr>
-        	<td>Keyword</td>
-        	<td>
-        		<div class="ui form">
-			  <div class="field">
-			    <input type="text" placeholder="give people a glimpse of what the course is about...">
-			  </div>
-			</div>
-        	</td>
+          <td>Keyword</td>
+          <td>
+            <div class="ui form">
+        <div class="field">
+          <input type="text" placeholder="give people a glimpse of what the course is about...">
+        </div>
+      </div>
+          </td>
         </tr>
         <tr>
-        	<td>Assigned readings</td>
-        	<td>
-        		<div class="ui form">
-			  <div class="field">
-			    <input type="text" placeholder="suggested magazine, news, paper...">
-			  </div>
-			</div>
-        	</td>
+          <td>Assigned readings</td>
+          <td>
+            <div class="ui form">
+        <div class="field">
+          <input type="text" placeholder="suggested magazine, news, paper...">
+        </div>
+      </div>
+          </td>
         </tr>
         <tr>
-        	<td>Office hours</td>
-        	<td>
-        		<div class="ui form">
-			  <div class="field">
-			    <input type="text" placeholder="e.g. Monday 9 a.m. - 1 p.m.">
-			  </div>
-			</div>
-        	</td>
+          <td>Office hours</td>
+          <td>
+            <div class="ui form">
+        <div class="field">
+          <input type="text" placeholder="e.g. Monday 9 a.m. - 1 p.m.">
+        </div>
+      </div>
+          </td>
         </tr>
         <tr>
-        	<td>Reference books</td>
-        	<td>
-        		<div class="ui form">
-			  <div class="field">
-			    <input type="text" placeholder="textbook title, author, ISBN...">
-			  </div>
-			</div>
-        	</td>
+          <td>Reference books</td>
+          <td>
+            <div class="ui form">
+        <div class="field">
+          <input type="text" placeholder="textbook title, author, ISBN...">
+        </div>
+      </div>
+          </td>
         </tr> -->
       </tbody>
     </table>
 
     <button class="ui right floated button" ng-click="addBook()">
-	  	Submit
-	</button>
+      Submit
+  </button>
 </form>
 
 <br>
 
-	<h2 class="ui header">
+  <h2 class="ui header">
     <i class="checkmark box icon"></i>
     <div class="content">
       Evaluation
@@ -204,50 +225,50 @@
     <tr> 
       <td>1</td>
       <td>
-      	<div class="ui form">
-			<div class="field">
-			  <input type="text">
-			</div>
-		</div>
+        <div class="ui form">
+      <div class="field">
+        <input type="text">
+      </div>
+    </div>
       </td>
       <td>
-      	<div class="ui form">
-			<div class="field">
-			  <input type="text">
-			</div>
-		</div>
+        <div class="ui form">
+      <div class="field">
+        <input type="text">
+      </div>
+    </div>
       </td>
       <td>
-      	<div class="ui form">
-			<div class="field">
-			  <input type="text" placeholder="description about mark scheme...">
-			</div>
-		</div>
+        <div class="ui form">
+      <div class="field">
+        <input type="text" placeholder="description about mark scheme...">
+      </div>
+    </div>
       </td>
     </tr>
 
     <tr>
     <td>2</td>
       <td>
-      	<div class="ui form">
-			<div class="field">
-			  <input type="text">
-			</div>
-		</div>
-	  </td>
+        <div class="ui form">
+      <div class="field">
+        <input type="text">
+      </div>
+    </div>
+    </td>
       <td>
-      	<div class="ui form">
-			<div class="field">
-			  <input type="text">
-			</div>
-		</div>
+        <div class="ui form">
+      <div class="field">
+        <input type="text">
+      </div>
+    </div>
       </td>
       <td>
-      	<div class="ui form">
-			<div class="field">
-			  <input type="text" placeholder="description about mark scheme">
-			</div>
-		</div>
+        <div class="ui form">
+      <div class="field">
+        <input type="text" placeholder="description about mark scheme">
+      </div>
+    </div>
       </td>
     </tr>
 
@@ -257,16 +278,16 @@
   </table>
 
    <div class="ui button">
-		    <a href=""><i class="plus icon"></i>Add particulars</a>
-	</div>
-	<button class="ui right floated button">
-	  	Submit
-	</button>
-	
+        <a href=""><i class="plus icon"></i>Add particulars</a>
+  </div>
+  <button class="ui right floated button">
+      Submit
+  </button>
+  
 <br>
 <br>
 
-	<h2 class="ui header">
+  <h2 class="ui header">
     <i class="user icon"></i>
     <div class="content">
       Assistant Information
@@ -288,64 +309,64 @@
     <tr>
       <td>1</td>
       <td>
-      	<div class="ui form">
-			<div class="field">
-			  <input type="text">
-			</div>
-		</div>
+        <div class="ui form">
+      <div class="field">
+        <input type="text">
+      </div>
+    </div>
       </td>
       <td>
-      	<div class="ui form">
-			<div class="field">
-			  <input type="text">
-			</div>
-		</div>
+        <div class="ui form">
+      <div class="field">
+        <input type="text">
+      </div>
+    </div>
       </td>
       <td>
-      	<div class="ui form">
-			<div class="field">
-			  <input type="text">
-			</div>
-		</div>
+        <div class="ui form">
+      <div class="field">
+        <input type="text">
+      </div>
+    </div>
       </td>
       <td>
-      	<div class="ui form">
-			<div class="field">
-			  <input type="text">
-			</div>
-		</div>
+        <div class="ui form">
+      <div class="field">
+        <input type="text">
+      </div>
+    </div>
       </td>
     </tr>
 
     <tr>
       <td>2</td>
       <td>
-      	<div class="ui form">
-			<div class="field">
-			  <input type="text">
-			</div>
-		</div>
+        <div class="ui form">
+      <div class="field">
+        <input type="text">
+      </div>
+    </div>
       </td>
       <td>
-      	<div class="ui form">
-			<div class="field">
-			  <input type="text">
-			</div>
-		</div>
+        <div class="ui form">
+      <div class="field">
+        <input type="text">
+      </div>
+    </div>
       </td>
       <td>
-      	<div class="ui form">
-			<div class="field">
-			  <input type="text">
-			</div>
-		</div>
+        <div class="ui form">
+      <div class="field">
+        <input type="text">
+      </div>
+    </div>
       </td>
       <td>
-      	<div class="ui form">
-			<div class="field">
-			  <input type="text">
-			</div>
-		</div>
+        <div class="ui form">
+      <div class="field">
+        <input type="text">
+      </div>
+    </div>
       </td>
     </tr>
     </tbody>
@@ -353,11 +374,11 @@
   </table>
 
   <div class="ui button">
-		    <a href=""><i class="plus icon"></i>Add assistant</a>
-	</div>
-	<button class="ui right floated button">
-	  	Submit
-	</button>
+        <a href=""><i class="plus icon"></i>Add assistant</a>
+  </div>
+  <button class="ui right floated button">
+      Submit
+  </button>
 
 
 <br>  
