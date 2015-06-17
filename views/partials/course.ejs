@@ -19,24 +19,23 @@
     </div>
   </div>
  -->
-<select class="ui dropdown" ng-model="semester">
-      <option value="">Semester</option>
-      <option value="2014/2">103-2</option>
-      <option value="2014/1">103-1</option>
-    </select>
+		<select class="ui dropdown" ng-model="semester">
+		  <option value="">Semester</option>
+		  <option value="2014/2">103-2</option>
+		  <option value="2014/1">103-1</option>
+		  <option value="2013/2">102-2</option>
+		  <option value="2013/1">102-1</option>
+		</select>
 
-    <!-- <select class="ui dropdown" ng-model="course" ng-options="coursed.CNAME for coursed in courses">
-      <option value="">Course</option>
-    </select> -->
-
-
-
-
+		<select class="ui dropdown" ng-model="course" ng-options="course.CNAME for course in courses">
+		  <option value="">Course</option>
+		</select>
+		
   <div class="ui right floated button">
       <a href="/addcourse"><i class="plus icon"></i>Add New Course</a>
   </div>
 
-<table class="ui collapsing table segment">
+<table class="ui compact table">
   <thead>
     <tr>
     <!-- <th width ="7%">Course No</th>   -->  
@@ -52,7 +51,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-show="courses.length" ng-repeat="course in courses">
+    <tr>
       <!-- Call database -->
       <!-- <td>{{course.CID}}</td>  -->    
       <td>{{course.CNAME}}</td>
