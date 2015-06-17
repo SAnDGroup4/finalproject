@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies
  */
@@ -45,8 +44,15 @@ function allowCrossDomain(req, res, next) {
 }
 
 
+
+app.set('ipaddress', process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1")
+// app.set('ipaddress', "120.124.97.65");
+app.set('port', process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 8080);
+// app.set('port', 80);
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
 app.use(session({
-    // store: sessionRedis,
+    store: sessionRedis,
     secret: "SAfinalproject",
     cookie: {
       expires: new Date(Date.now() + 30*24*60*60*1000),
@@ -55,12 +61,6 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
-app.set('ipaddress', process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1")
-// app.set('ipaddress', "120.124.97.65");
-app.set('port', process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 8080);
-// app.set('port', 80);
-app.set('views', __dirname + '/views');
-app.set('view engine', 'ejs');
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({
   extended: true
@@ -96,7 +96,7 @@ app.get('/partial/:name', routes.partial);
 app.get('/api/name', api.name);
 app.get('/glogin', google.glogin);
 app.get('/callback', google.callback);
-app.get('/user', google.createUser);
+// app.get('/user', google.createUser);
 app.get('/logout', function(req, res){
   // req.logout();
   req.session.destroy(function() {
