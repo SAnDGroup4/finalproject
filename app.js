@@ -96,7 +96,7 @@ app.get('/partial/:name', routes.partial);
 app.get('/api/name', api.name);
 app.get('/glogin', google.glogin);
 app.get('/callback', google.callback);
-app.get('/user', google.createUser);
+// app.get('/user', google.createUser);
 app.get('/logout', function(req, res){
   // req.logout();
   req.session.destroy(function() {
