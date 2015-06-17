@@ -1,6 +1,7 @@
 var CLIENT_ID = '998708767567-il73o9ta6h4jsb4n644apn97tb2a5rl3';
 var CLIENT_SECRET = 'AQdW-zh3ALolTxOBerMBKzaN';
-var DOMAIN = 'http://localhost:8080/'
+var DOMAIN = 'http://localhost:8080/';
+// var DOMAIN = 'http://gceiba-sandgroup4.rhcloud.com/';
 var REDIRECT_URL = DOMAIN + 'callback';
 var scopes = [
   'https://www.googleapis.com/auth/drive',
@@ -141,7 +142,7 @@ exports.callback = function(req, res) {
 				  	request.post({url: DOMAIN + 'createfolder', 
 				  		form: {folder_name:'gCeiba', description: 'gCeiba Root Folder'}},
 						function(err,httpResponse,body){
-							var resbody = JSON.parse(body)
+							var resbody = JSON.parse(body);
 							user.upsert({GACCOUNT: response.user.emailAddress, ROOT_FOLDER: resbody.FID
 								, G_REFRESH_TOKEN: oauth2Client.credentials.refresh_token, UNAME: response.name
 							}).then(function(user){
