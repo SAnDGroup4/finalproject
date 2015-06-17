@@ -96,6 +96,31 @@ angular.module('myApp.controllers', ['ngRoute']).
         });
     },true);
 
+	$scope.addBook = function(){
+      $http({
+
+      method : 'POST',
+      url: '/course/addcourse',
+      data: {Course_name: $scope.courseName, Time : $scope.courseTime, 
+            Classroom : $scope.classVenue, Note: $scope.note,
+            year: $scope.courseYear, semester: $scope.courseSemester},
+      //headers : {'Content-type' : 'application/json'} 
+      }).
+      success(function (data, status, headers, config) {
+        $scope.courses = data;
+      }).
+      error(function (data, status, headers, config) {
+        $scope.cname = 'Error!';
+      });
+      /*if(data.success)
+      { 
+      $scope.courses.push(data); 
+       }
+
+      }).error(function(data, status, headers, config){
+        $scope.cname = 'Error!';
+      //set error message.*/
+    }
     //  $scope.$watch('semester', function(newValue, oldValue) {
     //   $http({
     //     method: 'GET',
@@ -133,31 +158,7 @@ angular.module('myApp.controllers', ['ngRoute']).
     //  console.log($scope.name);
     //},true);
 
-    $scope.addBook = function(){
-      $http({
-
-      method : 'POST',
-      url: '/course/addcourse',
-      data: {Course_name: $scope.courseName, Time : $scope.courseTime, 
-            Classroom : $scope.classVenue, Note: $scope.note,
-            year: $scope.courseYear, semester: $scope.courseSemester},
-      //headers : {'Content-type' : 'application/json'} 
-      }).
-      success(function (data, status, headers, config) {
-        $scope.courses = data;
-      }).
-      error(function (data, status, headers, config) {
-        $scope.cname = 'Error!';
-      });
-      /*if(data.success)
-      { 
-      $scope.courses.push(data); 
-       }
-
-      }).error(function(data, status, headers, config){
-        $scope.cname = 'Error!';
-      //set error message.*/
-    }
+    
   }).
   controller('Archive', function ($rootScope, $scope, $location, $http) {
     
