@@ -4,7 +4,8 @@
 
 angular.module('myApp.controllers', ['ngRoute']).
   controller('AppCtrl', function ($rootScope, $window, $scope, $http, $state, $location) {
-    
+    $rootScope.isLogin = $window.isLogin;
+    $rootScope.name = $window.name;
     $rootScope.update=function(){
       $http({
         method: 'POST',

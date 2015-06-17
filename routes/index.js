@@ -5,15 +5,16 @@ var request = require('request');
 
 exports.index = function(req, res){
 	var config = {};
-	console.log(req.session.isLogin);
+	// console.log(req.session.isLogin);
 	if(!req.session.isLogin){
 		req.session.isLogin = false;
-		config.token = false;
+		config.isLogin = false;
 		res.render('login', config);
 
 	}
 	else{
-		config.token = true;
+		config.isLogin = true;
+		config.name = req.session.name;
 		res.render('index', config);
 	}
 	// var config = {};
