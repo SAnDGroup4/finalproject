@@ -70,6 +70,8 @@ angular.module('myApp.controllers', ['ngRoute']).
     },true);
     $scope.$watch('course', function(newValue, oldValue) {
     },true);
+
+
   }).
   controller('Course', function ($rootScope, $window, $scope, $http, $state, $location) {
     $http({

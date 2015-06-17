@@ -1,6 +1,7 @@
 var CLIENT_ID = '998708767567-il73o9ta6h4jsb4n644apn97tb2a5rl3';
 var CLIENT_SECRET = 'AQdW-zh3ALolTxOBerMBKzaN';
-var REDIRECT_URL = 'http://localhost:8080/callback';
+var DOMAIN = 'http://localhost:8080/'
+var REDIRECT_URL = DOMAIN + 'callback';
 var scopes = [
   'https://www.googleapis.com/auth/drive',
   'https://www.googleapis.com/auth/userinfo.profile',
@@ -25,6 +26,7 @@ var sequelize = new Sequelize(
 		local.model.mysql.password,
 		local.model.mysql.options
 );
+
 var file = sequelize.define('File', {
 		FFID: { type : Sequelize.INTEGER, primaryKey : true, autoIncrement : true },
         FID: Sequelize.TEXT, 
@@ -41,6 +43,7 @@ var user = sequelize.define('User', {
         UPASSWORD : Sequelize.TEXT,
         GACCOUNT : Sequelize.TEXT,
         G_REFRESH_TOKEN : Sequelize.TEXT,
+        ROOT_FOLDER : Sequelize.TEXT,
         ADMIN : Sequelize.BOOLEAN,
         UNAME : Sequelize.TEXT,
         STUID : Sequelize.TEXT
@@ -104,7 +107,7 @@ exports.glogin = function(req, res) {
 	  access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
 	  state: req.session.state,
 	  scope: scopes, // If you only need one scope you can pass it as string
-	  approval_prompt: 'force',
+	  // approval_prompt: 'force',
 	  display: 'popup'
 	});
     res.writeHead(200, {'Content-Type': 'text/plain'});
@@ -120,11 +123,49 @@ exports.callback = function(req, res) {
     // Verify the 'state' variable generated during '/login' equals what was passed back
     if (req.session.state == cb_state) {
         if (code !== undefined) {
-        	// req.session.isLogin = true;
+        	//user grant google permission
+        	req.session.isLogin = true;
+        	//get token
           	oauth2Client.getToken(code, function(err, tokens) {
 			  // Now tokens contains an access_token and an optional refresh_token. Save them.
 			  if(!err) {
 			    oauth2Client.setCredentials(tokens);
+			    //get user basic profile
+			    drive.about.get({'auth': oauth2Client }, function (err, response) {
+				  if (err) {
+				    console.log('Encountered error', err);
+				  } else {
+				  	//set session
+				  	req.session.name = response.name;
+				  	//create root folder
+				  	request.post({url: DOMAIN + 'createfolder', 
+				  		form: {folder_name:'gCeiba', description: 'gCeiba Root Folder'}},
+						function(err,httpResponse,body){
+							var resbody = JSON.parse(body)
+							user.upsert({GACCOUNT: response.user.emailAddress, ROOT_FOLDER: resbody.FID
+								, G_REFRESH_TOKEN: oauth2Client.credentials.refresh_token, UNAME: response.name
+							}).then(function(user){
+								console.log(user);
+							}).catch(function(err){
+						            console.log(err);
+							})
+						
+							// console.log(err);
+							// console.log(httpResponse);
+							// console.log(body.);
+						}
+							// console.log(httpResponse);
+							// req.session.rootFolderID = body.id;
+					)
+					//   	user.findOrCreate({GACCOUNT: response.user.emailAddress, G_REFRESH_TOKEN: oauth2Client.credentials.refresh_token,
+					// 	ADMIN: 1, UNAME: response.name,
+					// 	where:{GACCOUNT: response.user.emailAddress}})
+					// .then().catch(function(err){
+				 //            console.log(err);
+					// });
+
+				  }
+				});
 			  }
 			  else{
 			  	console.error("Error occured: ", err);
@@ -144,55 +185,63 @@ exports.callback = function(req, res) {
     }
 };
 
-exports.createUser = function(req, res) {
-	req.session.isLogin = true;
-	var params={'auth': oauth2Client };
-  	drive.about.get(params, function (err, response) {
-	  if (err) {
-	    console.log('Encountered error', err);
-	  } else {
-	  	// console.log('create root folder');
-	 //  	request.post({url:'http://localhost:8080/createfolder', 
-	 //  		form: {folder_name:'gCeiba', description: 'gCeiba Root Folder'}},
-		// 	function(err,httpResponse,body){
-		// 		console.log(err);
-		// 		console.log(body);
-		// 		console.log(httpResponse);
-		// 		rootFolderID = body.id;
-		// })
+// exports.createUser = function(req, res) {
+// 	if(!req.session.isLogin){
+// 		res.redirect('/');
+// 	}
+	// req.session.isLogin = true;
+	// var params={'auth': oauth2Client };
+ //  	drive.about.get(params, function (err, response) {
+	//   if (err) {
+	//     console.log('Encountered error', err);
+	//   } else {
+	//   	// console.log('create root folder');
+	//  //  	request.post({url:'http://localhost:8080/createfolder', 
+	//  //  		form: {folder_name:'gCeiba', description: 'gCeiba Root Folder'}},
+	// 	// 	function(err,httpResponse,body){
+	// 	// 		console.log(err);
+	// 	// 		console.log(body);
+	// 	// 		console.log(httpResponse);
+	// 	// 		rootFolderID = body.id;
+	// 	// })
 
-	 //  	user.findOrCreate({GACCOUNT: response.user.emailAddress, G_REFRESH_TOKEN: oauth2Client.credentials.refresh_token,
-		// 	ADMIN: 1, UNAME: response.name,
-		// 	where:{GACCOUNT: response.user.emailAddress}})
-		// .then().catch(function(err){
-	 //            console.log(err);
-		// });
+	//  //  	user.findOrCreate({GACCOUNT: response.user.emailAddress, G_REFRESH_TOKEN: oauth2Client.credentials.refresh_token,
+	// 	// 	ADMIN: 1, UNAME: response.name,
+	// 	// 	where:{GACCOUNT: response.user.emailAddress}})
+	// 	// .then().catch(function(err){
+	//  //            console.log(err);
+	// 	// });
 
-		user.upsert({GACCOUNT: response.user.emailAddress}, {GACCOUNT: response.user.emailAddress, G_REFRESH_TOKEN: oauth2Client.credentials.refresh_token,
-			ADMIN: 1, UNAME: response.name})
-		.then().catch(function(err){
-	            console.log(err);
-		});
-	  }
-	});
-  	res.redirect('/');
-};
+	// 	user.upsert({GACCOUNT: response.user.emailAddress}, {GACCOUNT: response.user.emailAddress, G_REFRESH_TOKEN: oauth2Client.credentials.refresh_token,
+	// 		ADMIN: 1, UNAME: response.name})
+	// 	.then().catch(function(err){
+	//             console.log(err);
+	// 	});
+	//   }
+	// });
+//   	res.redirect('/');
+// };
 
 exports.createFolder = function(req, res){
 	var folder_name = req.body.folder_name;
-	var under_id = "";
-	console.log('create folder');
-	console.log(req.body.under_id);
-	console.log(req.body.description);
-	if (req.body.under_id !== undefined) under_id = req.body.under_id;
-	var description = "";
-	if (req.body.description !== undefined) description = req.body.description;
+	// console.log('create folder');
+	// console.log(req.body.under_id);
+	var description = req.body.description;
+	var params;
+	if(req.body.under_id){
+		params = {
+			"title": folder_name,
+			"parents": [{"id":under_id}],
+		  	"mimeType": "application/vnd.google-apps.folder",
+		};
+	}
+	else{
+		params = {
+			"title": folder_name,
+		  	"mimeType": "application/vnd.google-apps.folder",
+		};
+	}
 	var folder_id = "";
-	var params = {
-		"title": folder_name,
-		"parents": [{"id":under_id}],
-	  	"mimeType": "application/vnd.google-apps.folder",
-	};
 	drive.files.insert({'resource':params, "auth": oauth2Client}, function (err, response) {
 		if(err){
 			console.log('Encountered error', err);
@@ -207,7 +256,7 @@ exports.createFolder = function(req, res){
 			file.build({FID: fid, FPARENT: fparent,
 	  		FNAME: folder_name, FOWNER: fowner})
 	  		.save().then(function(folder){
-	  			console.log(folder);
+	  			// console.log(folder);
 	  			res.json(folder);
 	  		}).catch(function(err){
 	  			console.log(err);
@@ -250,5 +299,5 @@ exports.addCourse = function(req, res){
 		console.log(err);
 	});
 	res.writeHead(200, {'Content-Type': 'text/plain'});
-    res.end('http://localhost:8080/course');
+    res.end(DOMAIN + 'course');
 };
