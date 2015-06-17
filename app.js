@@ -1,4 +1,3 @@
-
 /**
  * Module dependencies
  */
@@ -45,6 +44,13 @@ function allowCrossDomain(req, res, next) {
 }
 
 
+
+app.set('ipaddress', process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1")
+// app.set('ipaddress', "120.124.97.65");
+app.set('port', process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 8080);
+// app.set('port', 80);
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
 app.use(session({
     // store: sessionRedis,
     secret: "SAfinalproject",
@@ -55,12 +61,6 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
-app.set('ipaddress', process.env.OPENSHIFT_NODEJS_IP || "127.0.0.1")
-// app.set('ipaddress', "120.124.97.65");
-app.set('port', process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 8080);
-// app.set('port', 80);
-app.set('views', __dirname + '/views');
-app.set('view engine', 'ejs');
 app.use(morgan('dev'));
 app.use(bodyParser.urlencoded({
   extended: true

@@ -1,0 +1,48 @@
+<br><h2> </h2>
+		<select class="ui dropdown" ng-model="semester">
+		  <option value="">Semester</option>
+		  <option value="2014/2">103-2</option>
+		  <option value="2014/1">103-1</option>
+		  <option value="2013/2">102-2</option>
+		  <option value="2013/1">102-1</option>
+		</select>
+
+		<select class="ui dropdown" ng-model="course2" ng-options="course.CNAME for course in courses">
+		  <option value="">Course</option>
+		</select>
+
+		<table class="ui compact table">
+			<thead>
+				<tr>
+					<th>Class Information</th>
+					<th>Personal Assignment</th>
+					<th>Group Projects</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td colspan=3><center>{{course.CNAME}}</center></td>
+				</tr>
+				<tr>
+					<td>{{course.CINFO}}</td>
+					<td>{{course.CYEAR}} {{course.CSEMESTER}}</td>
+					<td>{{course.CTEACHER}} {{course.CTIME}}</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		
+		<div class="ui top attached tabular menu">
+			<a class="active item" data-tab="Class Information">Class Information</a>
+			<a class="active item" data-tab="Personal Assignments">Personal Assignments</a>
+			<a class="active item" data-tab="Group Projects">Group Projects</a>
+		  </div>
+		<div class="ui bottom attached active tab segment" data-tab="Class Information">
+			ClassInformation
+		  </div>
+		<div class="ui bottom attached active tab segment" data-tab="Personal Assignments">
+			Personal Assignments
+		  </div>
+		<div class="ui bottom attached active tab segment" data-tab="Group Projects">
+			Group Projects
+		  </div>	

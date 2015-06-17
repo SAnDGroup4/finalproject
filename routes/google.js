@@ -72,9 +72,6 @@ var course = sequelize.define('Course', {
 
 var oauth2Client = new OAuth2(CLIENT_ID, CLIENT_SECRET, REDIRECT_URL, {tokenUrl: "https://www.googleapis.com/oauth2/v3/token"});
 
-// generate a url that asks permissions for Google Drive
-
-
 
 
 
@@ -101,23 +98,17 @@ exports.getToken = function(req, res){
 };
 
 exports.glogin = function(req, res) {
-	if(req.session.isLogin)
-		res.render('/');
-    // Generate a unique number that will be used to check if any hijacking
-    // was performed during the OAuth flow
-    else{
-	    state = Math.floor(Math.random() * 1e18);
-	    var authUrl = oauth2Client.generateAuthUrl({
-	      response_type: "code",
-		  access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
-		  state: state,
-		  scope: scopes, // If you only need one scope you can pass it as string
-		  approval_prompt: 'force',
-		  display: 'popup'
-		});
-	    res.writeHead(200, {'Content-Type': 'text/plain'});
-    	res.end(authUrl);
-	}
+    req.session.state = Math.floor(Math.random() * 1e18);
+    var authUrl = oauth2Client.generateAuthUrl({
+      response_type: "code",
+	  access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
+	  state: req.session.state,
+	  scope: scopes, // If you only need one scope you can pass it as string
+	  approval_prompt: 'force',
+	  display: 'popup'
+	});
+    res.writeHead(200, {'Content-Type': 'text/plain'});
+  	res.end(authUrl);
 };
 
 
@@ -127,7 +118,7 @@ exports.callback = function(req, res) {
       , cb_state = req.query.state
       , error = req.query.error;
     // Verify the 'state' variable generated during '/login' equals what was passed back
-    if (state == cb_state) {
+    if (req.session.state == cb_state) {
         if (code !== undefined) {
         	// req.session.isLogin = true;
           	oauth2Client.getToken(code, function(err, tokens) {
