@@ -52,7 +52,7 @@ app.set('port', process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT || 8080);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use(session({
-    store: sessionRedis,
+    // store: sessionRedis,
     secret: "SAfinalproject",
     cookie: {
       expires: new Date(Date.now() + 30*24*60*60*1000),
