@@ -162,8 +162,23 @@ angular.module('myApp.controllers', ['ngRoute']).
       // });
   }).
 
-  controller('AddStudents', function ($rootScope, $window, $scope, $http, $state, $location) {
+  controller('AddStudent', function ($rootScope, $window, $scope, $http, $state, $location) {
+    // $scope.addRecord = function(){
+    //   $http({
 
+    //   method : 'POST',
+    //   url: '/course/addstudent',
+    //   data: {student_ID: $scope.SID, name: $scope.studentName,
+    //         major: $scope.studentMajor, grade: $scope.studentGrade
+    //         , },
+    //   //headers : {'Content-type' : 'application/json'} 
+    //   }).
+    //   success(function (data, status, headers, config) {
+    //     $scope.courses = data;
+    //   }).
+    //   error(function (data, status, headers, config) {
+    //     $scope.cname = 'Error!';
+    //   });
 
 
   }).
@@ -218,5 +233,9 @@ angular.module('myApp.controllers', ['ngRoute']).
     },true);
   }).
   controller('PersonalInfo', function ($rootScope, $scope, $location, $http) {
+    
+  });
+
+  controller('AddGroup', function ($rootScope, $scope, $location, $http) {
     
   });

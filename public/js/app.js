@@ -48,6 +48,16 @@ angular.module('myApp', [
       templateUrl: 'partial/personalinfo',
       controller: 'PersonalInfo'
     }).
+    state('addstudent', {
+      url:'/addstudent',
+      templateUrl: 'partial/addstudent',
+      controller: 'AddStudent'
+    }).
+    state('addgroup', {
+      url:'/addgroup',
+      templateUrl: 'partial/addgroup',
+      controller: 'AddGroup'
+    }).
     state('otherwise',{
       url: "/"
     })

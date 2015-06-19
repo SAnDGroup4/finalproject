@@ -9,11 +9,12 @@
 		  <option value="2013/1">102-1</option>
 		</select>
 
-		<select class="ui dropdown" ng-model="course2" ng-options="course.CNAME for course in courses">
+		<select class="ui dropdown" ng-model="course2" ng-options="course2.CNAME for course in courses">
 		  <option value="">Course</option>
 		</select>
 
-		<h2 class="ui header">{{course2.CNAME}}</h2>
+		<h1 class="ui header">{{course2.CNAME}}</h1>
+
 
 		<table class="ui compact table">
 			<thead>

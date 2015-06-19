@@ -1,4 +1,4 @@
-<!doctype html>
+<!--<!doctype html>
 <html lang="en" ng-app="myApp">
     <head>
 		<style>
@@ -26,6 +26,12 @@
 			background-color: Silver
 		}
 		</style>
+	-->
+<link rel="stylesheet" href="/css/semantic.min.css">  
+        <link rel="stylesheet" href="/css/icon.min.css">
+        <link rel="stylesheet" href="/css/image.min.css">
+        <link rel='stylesheet', href='/css/app.css'>
+
     <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-1.7.1.min.js"></script>
     <script type="text/javascript">
 		var url = '';
@@ -42,18 +48,33 @@
 			 }),1000);
 		});
 	</script>
-    </head>
-    <body>
+    <!-- </head>
+    <body> -->
 		
-		<div class="ui center aligned segment">
-		  Enjoy your time in GCeiba
-		</div>		
+		<div class="ui segment">
+		  
+		<br>
 		
-    	<div class="heading">
-			Welcome to gceiba ! Enjoy your convenience with google drive
+
+		  <h1 class="ui header">Welcome to GCeiba
+		  	
+		  	<div class="sub header">With GCeiba, manage your archived file is simpler than ever! </div>
+		  	<br>
+		  	<div class="sub header">GCeiba acts as an interface that connect users with Google Drive. Through this system, instructor can create folder and view student assignment on Google Drive, as well as upload documents to the drive. More than that, the wonderful thing of it is that the assignment submitted by students will be automatically placed in instructor's folder, which means the instructor does not have to upload every assignment with his own hands. The only thing users need to do is to register a Google account beforehand. 
 		</div>
-		<div style="align:center; text-align:center">
-		<button onclick="w = window.open(url, 'window', 'status=0,menubar=0,resizable=1,width=500,height=500;')">Login to Google</button>
+		  </h1>
+		<br>
+		<div class="sub header">
+			*Please login to the system by clicking button below. You will be asked to login by Google account.
 		</div>
-    </body>
+
+		<div>
+		<br>
+		<button class="ui google plus button" onclick="w = window.open(url, 'window', 'status=0,menubar=0,resizable=1,width=500,height=500;')">
+			<i class="google plus icon"></i>
+			Login to Google</button>
+		</div>
+		<br>
+</div>	
+    <!-- </body>
 </html>
