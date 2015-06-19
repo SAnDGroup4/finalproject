@@ -60,16 +60,16 @@ angular.module('myApp.controllers', ['ngRoute']).
     
   }).
   controller('Course', function ($rootScope, $window, $scope, $http, $state, $location) {
-    $http({
-      method: 'GET',
-      url: '/course/listcourses'
-    }).
-    success(function (data, status, headers, config) {
-      $scope.courses = data;
-    }).
-    error(function (data, status, headers, config) {
-      $scope.cname = 'Error!';
-    });
+    // $http({
+    //   method: 'GET',
+    //   url: '/course/listcourses'
+    // }).
+    // success(function (data, status, headers, config) {
+    //   $scope.courses = data;
+    // }).
+    // error(function (data, status, headers, config) {
+    //   $scope.cname = 'Error!';
+    // });
     $scope.courses={};
     $scope.$watch('course', function(){},true);
     $scope.$watch('semester', function(newValue, oldValue) {
