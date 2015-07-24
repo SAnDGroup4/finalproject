@@ -23,6 +23,20 @@ angular.module('myApp.controllers', ['ngRoute']).
     $rootScope.loadPicker=function(pid){
               var oauthToken = $rootScope.token;
               var pickerApiLoaded = false;
+              var rootfolderid = '';
+              $http({
+                method: 'POST',
+                url: '/rootfolder',
+**********                data: {'name': }
+              }).
+              success(function (data, status, headers, config) {
+                rootfolderid = data.rootfolderid;
+                onApiLoad();
+              }).
+              error(function (data, status, headers, config) {
+                console.log("can't get rootfolder id");
+              });
+
               function onApiLoad() {
                 gapi.load('picker', {'callback': onPickerApiLoad});
               };
@@ -53,23 +67,22 @@ angular.module('myApp.controllers', ['ngRoute']).
                 var message = 'You picked: <a href="' + url +'" target="_blank">' + url +'</a>';
                 document.getElementById('result').innerHTML = message;
               };
-              onApiLoad();
             };
   }).
   controller('Home', function ($rootScope, $scope, $location, $http) {
     
   }).
   controller('Course', function ($rootScope, $window, $scope, $http, $state, $location) {
-    $http({
-      method: 'GET',
-      url: '/course/listcourses'
-    }).
-    success(function (data, status, headers, config) {
-      $scope.courses = data;
-    }).
-    error(function (data, status, headers, config) {
-      $scope.cname = 'Error!';
-    });
+    // $http({
+    //   method: 'GET',
+    //   url: '/course/listcourses'
+    // }).
+    // success(function (data, status, headers, config) {
+    //   $scope.courses = data;
+    // }).
+    // error(function (data, status, headers, config) {
+    //   $scope.cname = 'Error!';
+    // });
     $scope.courses={};
     $scope.$watch('course', function(){},true);
     $scope.$watch('semester', function(newValue, oldValue) {
