@@ -27,7 +27,7 @@
     "express": "~4.1.1",
     "express-error-handler": "^1.0.1",
     "express-session": "^1.11.3",
-    "googleapis": "^2.0.5",
+    "googleapis": "^59.0.0",
     "gulp": "^3.8.11",
     "gulp-live-server": "0.0.14",
     "gulp-watch": "^4.2.4",
